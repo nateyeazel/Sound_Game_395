@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
 	private int count;
+	private bool gameOver;
 
 	public Vector3 JumpVelocity;
 
@@ -20,12 +22,20 @@ public class PlayerController : MonoBehaviour {
 		count = 0;
 		SetCountText ();
 		winText.text = "";
+		gameOver = false;
 	}
 
 	void Update () {
 
 		if(Input.GetButtonDown("Jump")) {
 			this.GetComponent<Rigidbody>().AddForce(JumpVelocity, ForceMode.VelocityChange);
+		}
+		if(rb.position.y <= -10) {
+			gameOver = true;
+			winText.text = "Loser, hit R to restart";
+		}
+		if(gameOver && Input.GetKeyDown("r")){
+			SceneManager.LoadScene(SceneManager.GetActiveScene ().name);
 		}
 	}
 
@@ -52,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 	void SetCountText ()
 	{
 		countText.text = "Count: " + count.ToString ();
-		if (count >= 6)
+		if (count >= 7)
 		{
 			winText.text = "You Win!";
 		}

@@ -55,7 +55,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="TBE_Components">
- <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Assignment 1/Rolling Ball/Assets/TBE_3Dception/Components/TBE_Components.dll</HintPath>
+ <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Rolling Ball/Assets/TBE_3Dception/Components/TBE_Components.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
