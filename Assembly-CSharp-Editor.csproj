@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{81A70CC1-78BD-3727-F64C-AB477522D4B2}</ProjectGuid>
+    <ProjectGuid>{467A5041-1F6C-6844-DEA0-36A224611945}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -73,10 +73,10 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
  <Reference Include="TBE_Components">
- <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Rolling Ball/Assets/TBE_3Dception/Components/TBE_Components.dll</HintPath>
+ <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Sound_Game_395/Assets/TBE_3Dception/Components/TBE_Components.dll</HintPath>
  </Reference>
  <Reference Include="TBE_Editor">
- <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Rolling Ball/Assets/TBE_3Dception/Components/Editor/TBE_Editor.dll</HintPath>
+ <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Sound_Game_395/Assets/TBE_3Dception/Components/Editor/TBE_Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{17DE3F41-D34F-89B3-3B0F-7BBCF3AE17F2}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{10EAE371-A163-9792-3F52-211E0037F700}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
-	public Text countText;
 	public Text winText;
 
 	private Rigidbody rb;
@@ -20,8 +19,8 @@ public class PlayerController : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody>();
 		count = 0;
-		SetCountText ();
-		winText.text = "";
+//		SetCountText ();
+//		winText.text = "";
 		gameOver = false;
 	}
 
@@ -55,16 +54,16 @@ public class PlayerController : MonoBehaviour {
 		{
 			other.gameObject.SetActive (false);
 			count = count + 1;
-			SetCountText ();
+//			SetCountText ();
 		}
 	}
 
-	void SetCountText ()
-	{
-		countText.text = "Count: " + count.ToString ();
-		if (count >= 7)
-		{
-			winText.text = "You Win!";
-		}
-	}
+//	void SetCountText ()
+//	{
+//		countText.text = "Count: " + count.ToString ();
+//		if (count >= 7)
+//		{
+//			winText.text = "You Win!";
+//		}
+//	}
 }

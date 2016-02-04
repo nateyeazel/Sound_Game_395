@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{17DE3F41-D34F-89B3-3B0F-7BBCF3AE17F2}</ProjectGuid>
+    <ProjectGuid>{10EAE371-A163-9792-3F52-211E0037F700}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,9 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CameraController.cs" />
-     <Compile Include="Assets\PlayerController.cs" />
-     <Compile Include="Assets\Rotator.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Rotator.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -55,7 +55,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="TBE_Components">
- <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Rolling Ball/Assets/TBE_3Dception/Components/TBE_Components.dll</HintPath>
+ <HintPath>/Users/nathanyeazel/Documents/2015-2016 Year/EECS 395/Sound_Game_395/Assets/TBE_3Dception/Components/TBE_Components.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
