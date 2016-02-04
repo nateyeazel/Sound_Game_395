@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pick Up
   - tbe_room
+  - Enemy
   layers:
   - Default
   - TransparentFX
