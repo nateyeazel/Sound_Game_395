@@ -32,11 +32,13 @@ public class PlayerController : MonoBehaviour {
 		}
 		if(rb.position.y <= -10) {
 			gameOver = true;
-			winText.text = "Loser, hit R to restart";
+            Time.timeScale = 0;
+            winText.text = "Loser, hit R to restart";
 		}
 		if(gameOver && Input.GetKeyDown("r")){
 			SceneManager.LoadScene(SceneManager.GetActiveScene ().name);
-		}
+            Time.timeScale = 1;
+        }
 	}
 
 	void FixedUpdate ()
@@ -57,7 +59,20 @@ public class PlayerController : MonoBehaviour {
 			count = count + 1;
 			SetCountText ();
 		}
-	}
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            winText.text = "Loser, hit R to restart";
+            Time.timeScale = 0;
+            gameOver = true;
+            if (gameOver && Input.GetKeyDown("r"))
+            {
+                Time.timeScale = 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+
+        }
+    }
 
 	void SetCountText ()
 	{
