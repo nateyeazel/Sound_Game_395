@@ -86,7 +86,9 @@ public class TBE_UpgradeWindow : EditorWindow
 			
 			if (GUILayout.Button ("Update Scene Settings")) {	
 				instance.UpgradeUtil.upgradeSceneSettings ();
+#pragma warning disable CS0618 // Type or member is obsolete
 				EditorApplication.MarkSceneDirty();
+#pragma warning restore CS0618 // Type or member is obsolete
 			}
 			
 			EditorGUILayout.Space ();
@@ -119,7 +121,9 @@ public class TBE_UpgradeWindow : EditorWindow
 					instance.UpgradeUtil.updateFilterComponents ();
 					instance.UpgradeUtil.updateAmbiComponents ();
 					instance.SourceComponentNames = string.Empty;
+#pragma warning disable CS0618 // Type or member is obsolete
 					EditorApplication.MarkSceneDirty();
+#pragma warning restore CS0618 // Type or member is obsolete
 				}
 			}
 
@@ -134,7 +138,9 @@ public class TBE_UpgradeWindow : EditorWindow
 			if (GUILayout.Button ("Clean Project")) {	
 				instance.UpgradeUtil.cleanProject ();
 				AssetDatabase.Refresh ();
+#pragma warning disable CS0618 // Type or member is obsolete
 				EditorApplication.MarkSceneDirty();
+#pragma warning restore CS0618 // Type or member is obsolete
 			}
 		}
 		else 

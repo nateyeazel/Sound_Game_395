@@ -9,12 +9,11 @@ public class PlayerController : MonoBehaviour {
 	public Text winText;
 	public Text countText;
 	public Text countdownText;
-
 	private Rigidbody rb;
+    private GameObject Maincamera;
 	private int count;
 	private bool gameOver;
 	private bool visibleObjects;
-
 	public Vector3 JumpVelocity;
 
 
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour {
 		winText.text = "";
 		gameOver = false;
 		visibleObjects = true;
+        Maincamera = GameObject.Find("Main Camera");
 	}
 
 	void Update () {
@@ -67,8 +67,10 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+        movement = Maincamera.transform.rotation * movement;
 
-		rb.AddForce (movement * speed);
+
+        rb.AddForce (movement * speed);
 	}
 
 	void OnTriggerEnter(Collider other) 
