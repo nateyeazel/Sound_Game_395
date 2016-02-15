@@ -15,11 +15,15 @@ public class PlayerController : MonoBehaviour {
 	private bool gameOver;
 	private bool visibleObjects;
 	public Vector3 JumpVelocity;
+    public AudioClip itemcollected;
+    private AudioSource source;
 
 
 	void Start ()
 	{
-		rb = GetComponent<Rigidbody>();
+        source = gameObject.GetComponent<AudioSource>();
+        source.clip = itemcollected;
+        rb = GetComponent<Rigidbody>();
 		count = 0;
 		SetCountText ();
 		winText.text = "";
@@ -77,9 +81,11 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("Pick Up"))
 		{
-			other.gameObject.SetActive (false);
+            source.Play();
+            other.gameObject.SetActive (false);
 			count = count + 1;
-			SetCountText ();
+            source.Play();
+            SetCountText ();
 		}
 
         if (other.gameObject.CompareTag("Enemy"))
@@ -99,7 +105,8 @@ public class PlayerController : MonoBehaviour {
 			float new_x = Random.Range(-10f, 10f);
 			float new_z = Random.Range(-10f, 10f);
 			other.gameObject.transform.position = new Vector3(new_x, 0.5f, new_z);
-			count = count + 1;
+            source.Play();
+            count = count + 1;
 			SetCountText ();
 		}
     }

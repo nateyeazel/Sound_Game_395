@@ -178,6 +178,22 @@ Prefab:
       propertyPath: winText
       value: 
       objectReference: {fileID: 943369135}
+    - target: {fileID: 8251874, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: Spatialize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251874, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251874, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251874, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
   m_IsPrefabParent: 0
@@ -385,10 +401,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 602786426}
---- !u!1 &658013158 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 126842, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
-  m_PrefabInternal: {fileID: 382826516}
 --- !u!4 &658013164 stripped
 Transform:
   m_PrefabParentObject: {fileID: 440066, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
@@ -874,7 +886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070ea056bc6214efca64b17d9f92e16b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 658013158}
 --- !u!114 &1834022207
 MonoBehaviour:
   m_ObjectHideFlags: 0
