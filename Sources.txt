@@ -1,0 +1,8 @@
+Starting Point
+https://unity3d.com/learn/tutorials/projects/roll-ball-tutorial
+
+3DCeption
+http://www.twobigears.com/
+
+Camera controller 
+http://wiki.unity3d.com/index.php/MouseOrbitImproved

@@ -389,6 +389,10 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 126842, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
   m_PrefabInternal: {fileID: 382826516}
+--- !u!4 &658013164 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 440066, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+  m_PrefabInternal: {fileID: 382826516}
 --- !u!1 &875841475
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +788,7 @@ GameObject:
   - 124: {fileID: 1834022202}
   - 81: {fileID: 1834022201}
   - 114: {fileID: 1834022206}
+  - 114: {fileID: 1834022207}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -864,12 +869,31 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1834022200}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 070ea056bc6214efca64b17d9f92e16b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 658013158}
+--- !u!114 &1834022207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1834022200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5513b88d3784d3a4c85fac4e9ecc41b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 658013164}
+  distance: 5
+  xSpeed: 120
+  ySpeed: 120
+  yMinLimit: 4
+  yMaxLimit: 80
+  distanceMin: 5
+  distanceMax: 15
 --- !u!1 &1998132808
 GameObject:
   m_ObjectHideFlags: 0
