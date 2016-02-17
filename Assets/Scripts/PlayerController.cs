@@ -8,28 +8,37 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public Text winText;
 	public Text countText;
-	public Text countdownText;
+    public Text scoreText;
+    public Text countdownText;
 	private Rigidbody rb;
     private GameObject Maincamera;
-	private int count;
+    private int count;
+    private int points;
 	private bool gameOver;
 	private bool visibleObjects;
 	public Vector3 JumpVelocity;
     public AudioClip itemcollected;
     private AudioSource source;
-
+    private float spawnTime;
+    public bool flicker;
 
 	void Start ()
 	{
+        flicker = false;
         source = gameObject.GetComponent<AudioSource>();
         source.clip = itemcollected;
         rb = GetComponent<Rigidbody>();
 		count = 0;
 		SetCountText ();
 		winText.text = "";
-		gameOver = false;
+        spawnTime = Time.time;
+        points = 0;
+        SetPointsText();
+        gameOver = false;
 		visibleObjects = true;
         Maincamera = GameObject.Find("Main Camera");
+        
+        
 	}
 
 	void Update () {
@@ -37,16 +46,25 @@ public class PlayerController : MonoBehaviour {
 		countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.realtimeSinceStartup, 0));
 
 		if(Time.realtimeSinceStartup >= 30){
-			GameObject target = GameObject.FindWithTag("Moving Target");
+            countdownText.text = string.Format("");
+            GameObject target = GameObject.FindWithTag("Moving Target");
 			if(visibleObjects){
 				visibleObjects = false;
 				target.GetComponent<Renderer>().enabled = false;
 				target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
-			} else if((int)Time.realtimeSinceStartup % 5 == 0){
-				target.GetComponent<Renderer>().enabled = true;
-			} else if((int)Time.realtimeSinceStartup % 5 == 1){
-				target.GetComponent<Renderer>().enabled = false;
 			}
+
+            if (flicker)
+            {
+                if ((int)Time.realtimeSinceStartup % 5 == 0)
+                {
+                    target.GetComponent<Renderer>().enabled = true;
+                }
+                else if ((int)Time.realtimeSinceStartup % 5 == 1)
+                {
+                    target.GetComponent<Renderer>().enabled = false;
+                }
+            }
 		} 
 
 		if(Input.GetButtonDown("Jump")) {
@@ -93,21 +111,18 @@ public class PlayerController : MonoBehaviour {
             winText.text = "Loser, hit R to restart";
             Time.timeScale = 0;
             gameOver = true;
-            if (gameOver && Input.GetKeyDown("r"))
-            {
-                Time.timeScale = 1;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-
-        }
+        }   
 		if (other.gameObject.CompareTag ("Moving Target"))
 		{
 			float new_x = Random.Range(-10f, 10f);
 			float new_z = Random.Range(-10f, 10f);
 			other.gameObject.transform.position = new Vector3(new_x, 0.5f, new_z);
+            points += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);            
+            count += 1;
+            spawnTime = Time.time;
             source.Play();
-            count = count + 1;
 			SetCountText ();
+            SetPointsText();
 		}
     }
 
@@ -119,4 +134,9 @@ public class PlayerController : MonoBehaviour {
 			winText.text = "You Win!";
 		}
 	}
+    void SetPointsText()
+    {
+        scoreText.text = "Score: " + ((int)points).ToString();
+        
+    }
 }

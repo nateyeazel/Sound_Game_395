@@ -9,11 +9,9 @@ public class MouseOrbitImproved: MonoBehaviour
     public float distance = 5.0f;
     public float xSpeed = 120.0f;
     public float ySpeed = 120.0f;
-
-    public float yMinLimit = -20f;
+    public float yMinLimit = 4f;
     public float yMaxLimit = 80f;
-
-    public float distanceMin = .5f;
+    public float distanceMin = 5f;
     public float distanceMax = 15f;
 
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
@@ -26,13 +24,14 @@ public class MouseOrbitImproved: MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Cursor.visible = false;
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
 
         rigidbody = GetComponent<Rigidbody>();
 
-        // Make the rigid body not change rotation
+        // Make the rigid body change rotation
         if (rigidbody != null)
         {
             rigidbody.freezeRotation = false;
