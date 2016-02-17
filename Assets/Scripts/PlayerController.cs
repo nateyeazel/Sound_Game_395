@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	private int count;
 	private bool gameOver;
 	private bool visibleObjects;
+	private bool touchingGround;
 	public Vector3 JumpVelocity;
     public AudioClip itemcollected;
     private AudioSource source;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour {
 		winText.text = "";
 		gameOver = false;
 		visibleObjects = true;
+		touchingGround = true;
         Maincamera = GameObject.Find("Main Camera");
 	}
 
@@ -42,16 +44,13 @@ public class PlayerController : MonoBehaviour {
 				visibleObjects = false;
 				target.GetComponent<Renderer>().enabled = false;
 				target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
-			} else if((int)Time.realtimeSinceStartup % 5 == 0){
-				target.GetComponent<Renderer>().enabled = true;
-			} else if((int)Time.realtimeSinceStartup % 5 == 1){
-				target.GetComponent<Renderer>().enabled = false;
 			}
+//			} else if((int)Time.realtimeSinceStartup % 10 == 0){
+//				target.GetComponent<Renderer>().enabled = true;
+//			} else if((int)Time.realtimeSinceStartup % 10 == 1){
+//				target.GetComponent<Renderer>().enabled = false;
+//			}
 		} 
-
-		if(Input.GetButtonDown("Jump")) {
-			this.GetComponent<Rigidbody>().AddForce(JumpVelocity, ForceMode.VelocityChange);
-		}
 
 		if(rb.position.y <= -10) {
 			gameOver = true;
@@ -65,12 +64,22 @@ public class PlayerController : MonoBehaviour {
         }
 	}
 
+	void OnCollisionStay () {
+		//Jump effects.
+		if (Input.GetButtonDown ("Jump")) {
+			this.GetComponent<Rigidbody>().AddForce(JumpVelocity, ForceMode.VelocityChange);
+		}
+	}
+
 	void FixedUpdate ()
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+		if(!touchingGround){
+			movement *= 0.1f;
+		}
         movement = Maincamera.transform.rotation * movement;
 
 
@@ -109,7 +118,18 @@ public class PlayerController : MonoBehaviour {
             count = count + 1;
 			SetCountText ();
 		}
+		if (other.gameObject.CompareTag ("Ground")){
+			touchingGround = true;
+		}
     }
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.CompareTag ("Ground")){
+			touchingGround = false;
+		}
+	}
+
 
 	void SetCountText ()
 	{
