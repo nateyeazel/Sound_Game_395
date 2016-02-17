@@ -66,7 +66,11 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
+<<<<<<< HEAD
+  m_LightingDataAsset: {fileID: 112000001, guid: 8e1c567a3b4c443e582880a55b378937,
+=======
   m_LightingDataAsset: {fileID: 112000001, guid: 65637b7deacdbbe4aa3c5156cf8900a3,
+>>>>>>> origin/master
     type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4

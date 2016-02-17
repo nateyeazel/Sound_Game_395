@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -55,6 +55,13 @@ public class PlayerController : MonoBehaviour {
 				target.GetComponent<Renderer>().enabled = false;
 				target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
 			}
+<<<<<<< HEAD
+//			} else if((int)Time.realtimeSinceStartup % 10 == 0){
+//				target.GetComponent<Renderer>().enabled = true;
+//			} else if((int)Time.realtimeSinceStartup % 10 == 1){
+//				target.GetComponent<Renderer>().enabled = false;
+//			}
+=======
 
             if (flicker)
             {
@@ -67,6 +74,7 @@ public class PlayerController : MonoBehaviour {
                     target.GetComponent<Renderer>().enabled = false;
                 }
             }
+>>>>>>> origin/master
 		} 
 
 		if(rb.position.y <= -10) {

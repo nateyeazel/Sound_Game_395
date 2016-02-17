@@ -8,11 +8,12 @@ public class MenuManager : MonoBehaviour {
     public GameObject optionsmenu;
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        Cursor.visible = true;
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
     public void loadlevel(int level)
