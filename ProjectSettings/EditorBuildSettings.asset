@@ -11,3 +11,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Invisible cube test.unity
   - enabled: 1
     path: Assets/Scenes/Invisible cube test (enemies).unity
+  - enabled: 1
+    path: Assets/Scenes/Testing jumping.unity
