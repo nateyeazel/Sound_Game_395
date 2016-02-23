@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Moving Target
   - Ground
+  - Music Pulse
   layers:
   - Default
   - TransparentFX
