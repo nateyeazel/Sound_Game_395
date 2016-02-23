@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class UIManager : MonoBehaviour {
+    public Canvas UI;
     public Text winText;
     public Text countText;
 	public Text scoreText;
@@ -14,27 +15,26 @@ public class UIManager : MonoBehaviour {
     void Start () {
 		GameObject gameManagerObject = GameObject.Find("GameManager");
 		GameManager gm = gameManagerObject.GetComponent<GameManager>();
-		gm.countChanged += SetCountText;
+        winText = UI.gameObject.GetComponent<Text>();
+        gm.countChanged += SetCountText;
 		gm.scoreChanged += SetScoreText;
 		gm.youLost += SetGameOver;
-        count = 0;
-		score = 0;
         winText.text = "";
         countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.timeSinceLevelLoad, 0));
-        countText.text = "Collected: " + count.ToString();
-        scoreText.text = "Score: " + score.ToString();
+        countText.text = "Collected: 0";
+        scoreText.text = "Score: 0"; 
 
     }
 	
 	// Update is called once per frame
 	void Update () {
         //limited to 1 second
-		if(Time.timeSinceLevelLoad >= 30 & Time.timeSinceLevelLoad <= 31)
+		if(Time.timeSinceLevelLoad <= 30)
         {
-			countdownText.text = string.Format("");
-		} else {
-			countdownText.text = string.Format("Time until blindness: {0}", 30 - Time.timeSinceLevelLoad);
-		}
+            countdownText.text = string.Format("Time until blindness: {0}", 30 - Time.timeSinceLevelLoad);
+        } else {
+            countdownText.text = string.Format("");
+        }
 	}
 
 	void SetGameOver (string lossType){
