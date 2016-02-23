@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	private bool visibleObjects;
 	public bool flicker;
 
+	private GameObject player;
+
 	//UI Manager events
 	public delegate void scoreChangedEvent(int newScore);
 	public event scoreChangedEvent scoreChanged;
@@ -25,13 +27,15 @@ public class GameManager : MonoBehaviour {
 	public event countChangedEvent countChanged;
 	public delegate void youLostEvent(string lossType);
 	public event youLostEvent youLost;
+	public GameObject beacon;
 
 	void Start () {
-		GameObject player = GameObject.Find("Player");
+		player = GameObject.Find("Player");
 		PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
         pc.itemCollected += onItemCollected;
         pc.collectedMovingTarget += collectedMovingTarget;
+		pc.lightsOff += lightsOut;
         visibleObjects = true;
 		flicker = false;
 		count = 0;
@@ -65,6 +69,11 @@ public class GameManager : MonoBehaviour {
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
         scoreChanged.Invoke(score);
 		//Move target to next destination
+	}
+
+	void lightsOut () {
+		GameObject mainLight = GameObject.Find("Directional Light");
+		mainLight.active = false;
 	}
 
 	void Update () {
@@ -109,5 +118,10 @@ public class GameManager : MonoBehaviour {
                 paused = true;
             }
         }
+		if (Input.GetKeyDown("b")){
+			Transform currentLocation = player.transform;
+			Vector3 beaconLocation = player.transform.position + new Vector3 (0, 3, 0);
+			Instantiate(beacon, beaconLocation, Quaternion.identity);
+		}
     }
 }

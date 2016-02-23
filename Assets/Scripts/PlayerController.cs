@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	//public event Action itemCollected = delegate{};
 	public event Action hitEnemy = delegate{};
 	public event Action fellOff = delegate{};
+	public event Action lightsOff = delegate{};
 	//public event Action collectedMovingTarget = delegate{};
 
     //Game Manager Events
@@ -88,6 +89,9 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (other.gameObject.CompareTag ("Ground")){
 			touchingGround = true;
+		}
+		if (other.gameObject.CompareTag ("Lights Off")){
+			lightsOff.Invoke();
 		}
     }
 

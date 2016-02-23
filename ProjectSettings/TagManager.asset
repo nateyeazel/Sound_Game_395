@@ -10,6 +10,7 @@ TagManager:
   - Moving Target
   - Ground
   - Music Pulse
+  - Lights Off
   layers:
   - Default
   - TransparentFX
