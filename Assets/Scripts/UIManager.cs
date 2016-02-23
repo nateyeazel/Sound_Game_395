@@ -15,7 +15,10 @@ public class UIManager : MonoBehaviour {
     void Start () {
 		GameObject gameManagerObject = GameObject.Find("GameManager");
 		GameManager gm = gameManagerObject.GetComponent<GameManager>();
-        winText = UI.gameObject.GetComponent<Text>();
+        winText = GameObject.Find("InGameUI").GetComponent<UIManager>().winText;
+        countdownText = GameObject.Find("InGameUI").GetComponent<UIManager>().countdownText;
+        countText = GameObject.Find("InGameUI").GetComponent<UIManager>().countText;
+        scoreText = GameObject.Find("InGameUI").GetComponent<UIManager>().scoreText;
         gm.countChanged += SetCountText;
 		gm.scoreChanged += SetScoreText;
 		gm.youLost += SetGameOver;
