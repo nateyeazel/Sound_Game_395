@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour {
 	//public event Action collectedMovingTarget = delegate{};
 
     //Game Manager Events
-    public delegate void collectedMovingTargetEvent(float spawnTime);
+    public delegate void collectedMovingTargetEvent(GameObject movingTarget);
     public event collectedMovingTargetEvent collectedMovingTarget;
-    public delegate void ItemCollectedEvent(float spawnTime);
+    public delegate void ItemCollectedEvent(GameObject item);
     public event ItemCollectedEvent itemCollected;
 
 
@@ -73,8 +73,7 @@ public class PlayerController : MonoBehaviour {
 		{
             source.Play();
             other.gameObject.SetActive (false);
-            float spawnTime = other.gameObject.GetComponent<PickUp>().spawnTime;
-            itemCollected.Invoke(spawnTime);
+            itemCollected.Invoke(other.gameObject);
 
 		}
 
@@ -85,17 +84,7 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Moving Target"))
 		{
             source.Play();
-            float spawnTime = other.gameObject.GetComponent<PickUp>().spawnTime;
-            collectedMovingTarget.Invoke(spawnTime);
-
-            //float new_x = Random.Range(-10f, 10f);
-            //float new_z = Random.Range(-10f, 10f);
-            //other.gameObject.transform.position = new Vector3(new_x, 0.5f, new_z);
-            //points += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);            
-            ////spawnTime = Time.time;
-            //count += 1;
-
-            source.Play();
+            collectedMovingTarget.Invoke(other.gameObject);
 		}
 		if (other.gameObject.CompareTag ("Ground")){
 			touchingGround = true;

@@ -38,11 +38,12 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 	}
 
-	void onItemCollected (float spawnTime) {
+	void onItemCollected (GameObject item) {
 		count += 1;
         Debug.Log(count);
         countChanged.Invoke(count);
         //Update points here
+        float spawnTime = item.GetComponent<PickUp>().spawnTime;
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         scoreChanged.Invoke(score);
     }
@@ -53,9 +54,15 @@ public class GameManager : MonoBehaviour {
 		youLost.Invoke("Fell off edge");
 	}
 
-	void collectedMovingTarget (float spawnTime) {
+	void collectedMovingTarget (GameObject movingTarget) {
 		count += 1;
+        float spawnTime = movingTarget.GetComponent<PickUp>().spawnTime;
+        //Update Location
+        float new_x = UnityEngine.Random.Range(-10f, 10f);
+        float new_z = UnityEngine.Random.Range(-10f, 10f);
+        movingTarget.transform.position = new Vector3(new_x, 0.5f, new_z);
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
+        movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
         scoreChanged.Invoke(score);
 		//Move target to next destination
 	}
