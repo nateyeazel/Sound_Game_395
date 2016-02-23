@@ -13,11 +13,7 @@ public class MouseOrbitImproved: MonoBehaviour
     public float yMaxLimit = 80f;
     public float distanceMin = 5f;
     public float distanceMax = 15f;
-
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-    private Rigidbody rigidbody;
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-
+    private new Rigidbody rigidbody;
     float x = 0.0f;
     float y = 0.0f;
 

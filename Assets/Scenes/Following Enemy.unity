@@ -267,6 +267,10 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1998132811}
+    - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: itemcollectedsound
+      value: 
+      objectReference: {fileID: 8300000, guid: c3efb831806517f4387d78ff3c134481, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
   m_IsPrefabParent: 0
@@ -885,8 +889,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 658013164}
-  speedmultiplier: 0.1
-  radius: 10
+  speedmultiplier: 0
+  radius: 0
 --- !u!1001 &1823921650
 Prefab:
   m_ObjectHideFlags: 0
@@ -896,15 +900,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -6.5219855
+      value: -3.49
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -4.6760907
+      value: -5.67
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalRotation.x

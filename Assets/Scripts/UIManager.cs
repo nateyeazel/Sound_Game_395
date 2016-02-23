@@ -17,19 +17,20 @@ public class UIManager : MonoBehaviour {
 		gm.countChanged += SetCountText;
 		gm.scoreChanged += SetScoreText;
 		gm.youLost += SetGameOver;
-
-		count = 0;
+        count = 0;
 		score = 0;
-		winText.text = "";
-		countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.timeSinceLevelLoad, 0));
+        winText.text = "";
+        countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.timeSinceLevelLoad, 0));
+        countText.text = "Collected: " + count.ToString();
+        scoreText.text = "Score: " + score.ToString();
 
-		SetCountText (count);
-		SetScoreText(score);
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		if(Time.timeSinceLevelLoad >= 30){
+        //limited to 1 second
+		if(Time.timeSinceLevelLoad >= 30 & Time.timeSinceLevelLoad <= 31)
+        {
 			countdownText.text = string.Format("");
 		} else {
 			countdownText.text = string.Format("Time until blindness: {0}", 30 - Time.timeSinceLevelLoad);
@@ -37,7 +38,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 	void SetGameOver (string lossType){
-		winText.text = "Loser, hit R to restart";
+        winText.text = "Loser, hit R to restart";
 	}
 
 	void SetCountText (int newCount)
@@ -52,7 +53,9 @@ public class UIManager : MonoBehaviour {
 	void SetScoreText(int newScore)
 	{
 		score = newScore;
-		scoreText.text = "Score: " + ((int)points).ToString();
+		scoreText.text = "Score: " + score.ToString();
+        count += 1;
+        SetCountText(count);
 
 	}
 }

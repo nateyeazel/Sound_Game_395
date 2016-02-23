@@ -10,26 +10,32 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
     private GameObject Maincamera;
-    
 	private bool touchingGround;
 	public Vector3 JumpVelocity;
-    public AudioClip itemcollected;
+    public AudioClip itemcollectedsound;
     private AudioSource source;
     private float spawnTime;
     
-	public event Action itemCollected = delegate{};
+    //general events actions
+	//public event Action itemCollected = delegate{};
 	public event Action hitEnemy = delegate{};
 	public event Action fellOff = delegate{};
-	public event Action collectedMovingTarget = delegate{};
+	//public event Action collectedMovingTarget = delegate{};
 
-	void Start ()
+    //Game Manager Events
+    public delegate void collectedMovingTargetEvent(float spawnTime);
+    public event collectedMovingTargetEvent collectedMovingTarget;
+    public delegate void ItemCollectedEvent(float spawnTime);
+    public event ItemCollectedEvent itemCollected;
+
+
+    void Start ()
 	{
         source = gameObject.GetComponent<AudioSource>();
-        source.clip = itemcollected;
+        source.clip = itemcollectedsound;
         rb = GetComponent<Rigidbody>();
-
 		touchingGround = true;
-        Maincamera = GameObject.Find("Main Camera");     
+        Maincamera = GameObject.Find("Main Camera");     //to be used for movement
         
 	}
 
@@ -67,34 +73,29 @@ public class PlayerController : MonoBehaviour {
 		{
             source.Play();
             other.gameObject.SetActive (false);
+            float spawnTime = other.gameObject.GetComponent<PickUp>().spawnTime;
+            itemCollected.Invoke(spawnTime);
 
-			itemCollected.Invoke();
-
-			count = count + 1;
-            source.Play();
-            SetCountText ();
 		}
 
         if (other.gameObject.CompareTag("Enemy"))
         {
 			hitEnemy.Invoke();
-
-            
-            Time.timeScale = 0;
         }   
 		if (other.gameObject.CompareTag ("Moving Target"))
 		{
-			collectedMovingTarget.Invoke();
-
-			float new_x = Random.Range(-10f, 10f);
-			float new_z = Random.Range(-10f, 10f);
-			other.gameObject.transform.position = new Vector3(new_x, 0.5f, new_z);
-            points += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);            
-            count += 1;
-            spawnTime = Time.time;
             source.Play();
-			SetCountText ();
-            SetPointsText();
+            float spawnTime = other.gameObject.GetComponent<PickUp>().spawnTime;
+            collectedMovingTarget.Invoke(spawnTime);
+
+            //float new_x = Random.Range(-10f, 10f);
+            //float new_z = Random.Range(-10f, 10f);
+            //other.gameObject.transform.position = new Vector3(new_x, 0.5f, new_z);
+            //points += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);            
+            ////spawnTime = Time.time;
+            //count += 1;
+
+            source.Play();
 		}
 		if (other.gameObject.CompareTag ("Ground")){
 			touchingGround = true;

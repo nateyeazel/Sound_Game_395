@@ -2,17 +2,17 @@
 using System.Collections;
 
 public class PickUp : MonoBehaviour {
-    float spawnTime;
+    public float spawnTime;
     float timeToCollect;
-    public Canvas UI; 
+    public string type;
 	// Use this for initialization
 	void Start () {
         spawnTime = Time.time;
+        //initiate type (random moving, static, list moving)?
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        timeToCollect = spawnTime - Time.time;
-            
+
 	}
 }

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     private bool paused = false;
     private float difficulty;
 	private int count;
-	private int points;
+	private int score;
 
     private Canvas MainMenu;
     private Canvas UI;
@@ -29,41 +29,42 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		GameObject player = GameObject.Find("Player");
 		PlayerController pc = player.GetComponent<PlayerController>();
-
-
-		visibleObjects = true;
+        pc.hitEnemy += youLose;
+        pc.itemCollected += onItemCollected;
+        pc.collectedMovingTarget += collectedMovingTarget;
+        visibleObjects = true;
 		flicker = false;
-
 		count = 0;
-		points = 0;
-
+		score = 0;
 	}
 
-	void onItemCollected () {
+	void onItemCollected (float spawnTime) {
 		count += 1;
-		countChanged.Invoke(count);
-		//Update points here
-
-	}
+        Debug.Log(count);
+        countChanged.Invoke(count);
+        //Update points here
+        score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
+        scoreChanged.Invoke(score);
+    }
 
 	void youLose () {
 		gameOver = true;
-		Time.timeScale = 0;
+        Time.timeScale = 0;
 		youLost.Invoke("Fell off edge");
 	}
 
-	void collectedMovingTarget () {
+	void collectedMovingTarget (float spawnTime) {
 		count += 1;
-		countChanged.Invoke(count);
-		//Update points here
+        score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
+        scoreChanged.Invoke(score);
 		//Move target to next destination
 	}
 
 	void Update () {
 
 		if(Time.timeSinceLevelLoad >= 30){
-			GameObject target = GameObject.FindWithTag("Moving Target");
-			if(visibleObjects){
+            GameObject target = GameObject.FindWithTag("Moving Target");
+            if (visibleObjects){
 				visibleObjects = false;
 				target.GetComponent<Renderer>().enabled = false;
 				target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
@@ -80,17 +81,13 @@ public class GameManager : MonoBehaviour {
 					target.GetComponent<Renderer>().enabled = false;
 				}
 			}
+		}
 
-			if(rb.position.y <= -10) {
-				gameOver = true;
-				Time.timeScale = 0;
-			}
-
-			if(gameOver && Input.GetKeyDown("r")){
-				SceneManager.LoadScene(SceneManager.GetActiveScene ().name);
-				Time.timeScale = 1;
-			}
-		} 
+        if (gameOver && Input.GetKeyDown("r"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1;
+        }
 
         if (Input.GetKeyDown("p"))
         {
