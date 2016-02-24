@@ -356,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flicker: 0
   beacon: {fileID: 165532, guid: 864368f5baba3495abf2fb61428d502a, type: 2}
+  darkSky: {fileID: 0}
 --- !u!4 &471369307
 Transform:
   m_ObjectHideFlags: 0
@@ -730,7 +731,7 @@ Prefab:
       objectReference: {fileID: 8300000, guid: c3efb831806517f4387d78ff3c134481, type: 3}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: speed
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: maxSpeed

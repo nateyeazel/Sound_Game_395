@@ -63,13 +63,12 @@ public class GameManager : MonoBehaviour {
 		count += 1;
         float spawnTime = movingTarget.GetComponent<PickUp>().spawnTime;
         //Update Location
-        float new_x = UnityEngine.Random.Range(-10f, 10f);
-        float new_z = UnityEngine.Random.Range(-10f, 10f);
-        movingTarget.transform.position = new Vector3(new_x, 0.5f, new_z);
+        movingTarget.GetComponent<PickUp>().MoveToNext(false);
+        //Move target to next destination
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
         scoreChanged.Invoke(score);
-		//Move target to next destination
+
 	}
 
 	void lightsOut (GameObject item) {

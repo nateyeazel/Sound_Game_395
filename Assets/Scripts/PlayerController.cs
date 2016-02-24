@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour {
         //Max Speed Implemtation
         if (rb.velocity.magnitude > maxSpeed)
         {
-            Debug.Log("MAX SPEED");
             float brakeSpeed = rb.velocity.magnitude - maxSpeed;  // calculate the speed decrease
             Vector3 normalisedVelocity = rb.velocity.normalized;
             Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;  // make the brake Vector3 value
