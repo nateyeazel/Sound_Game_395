@@ -1319,6 +1319,36 @@ MonoBehaviour:
 GameObject:
   m_PrefabParentObject: {fileID: 190758, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
   m_PrefabInternal: {fileID: 1552751625}
+--- !u!114 &1760592021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1760592020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1005375846, guid: cfc431489b1c841678e3b613e17c9b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eAttenMode_: 0
+  eSourcePanner_: 0
+  eRoomPanner_: 0
+  eInputChannel_: 0
+  bUseGlobalSourcePanner_: 0
+  bUseGlobalRoomPanner_: 0
+  fMinimumDistance_: 1
+  fMaximumDistance_: 10000
+  fFactor_: 1
+  fDopplerIntensity_: 0.1
+  customRolloffGain_: 1
+  roomObjectId_: 0
+  autoRoomId_: 0
+  bMaxMute_: 0
+  bDoppler_: 0
+  bRoom_: 0
+  bRoomAutoDetect_: 1
+  bSpatialize_: 1
+  erRoomObject_: {fileID: 0}
 --- !u!82 &1760592027
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1430,7 +1460,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 440066, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: itemcollectedsound

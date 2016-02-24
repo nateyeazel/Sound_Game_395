@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour {
 
 	void lightsOut (GameObject item) {
 		GameObject mainLight = GameObject.Find("Directional Light");
-		mainLight.GetComponent<Light>().intensity = 0.1f;
+		mainLight.GetComponent<Light>().intensity = 0.1f; //Best way to make dark
 //		RenderSettings.skybox.color = new Vector4(0,0,0,0);
 //		RenderSettings.skybox = darkSky;
         onItemCollected(item);

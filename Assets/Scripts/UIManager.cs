@@ -23,7 +23,8 @@ public class UIManager : MonoBehaviour {
 		gm.scoreChanged += SetScoreText;
 		gm.youLost += SetGameOver;
         winText.text = "";
-        countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.timeSinceLevelLoad, 0));
+		countdownText.text = "";
+        //countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.timeSinceLevelLoad, 0));
         countText.text = "Collected: 0";
         scoreText.text = "Score: 0"; 
 
@@ -34,7 +35,7 @@ public class UIManager : MonoBehaviour {
         //limited to 1 second
 		if(Time.timeSinceLevelLoad <= 30)
         {
-            countdownText.text = string.Format("Time until blindness: {0}", 30 - Time.timeSinceLevelLoad);
+            //countdownText.text = string.Format("Time until blindness: {0}", 30 - Time.timeSinceLevelLoad);
         } else {
             countdownText.text = string.Format("");
         }
