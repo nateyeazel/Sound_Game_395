@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 	public delegate void youLostEvent(string lossType);
 	public event youLostEvent youLost;
 	public GameObject beacon;
+	public Material darkSky;
 
 	void Start () {
 		player = GameObject.Find("Player");
@@ -73,7 +74,9 @@ public class GameManager : MonoBehaviour {
 
 	void lightsOut (GameObject item) {
 		GameObject mainLight = GameObject.Find("Directional Light");
-        mainLight.SetActive(false);
+		mainLight.GetComponent<Light>().intensity = 0.1f;
+//		RenderSettings.skybox.color = new Vector4(0,0,0,0);
+//		RenderSettings.skybox = darkSky;
         onItemCollected(item);
     }
 
@@ -121,7 +124,7 @@ public class GameManager : MonoBehaviour {
         }
 		if (Input.GetKeyDown("b")){
 			Transform currentLocation = player.transform;
-			Vector3 beaconLocation = player.transform.position + new Vector3 (0, 3, 0);
+			Vector3 beaconLocation = player.transform.position + new Vector3 (0, 1, 0);
 			Instantiate(beacon, beaconLocation, Quaternion.identity);
 		}
     }
