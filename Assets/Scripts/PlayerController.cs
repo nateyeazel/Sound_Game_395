@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
-
 	private Rigidbody rb;
     private GameObject Maincamera;
 	private bool touchingGround;
@@ -15,6 +14,8 @@ public class PlayerController : MonoBehaviour {
     public AudioClip itemcollectedsound;
     private AudioSource source;
     private float spawnTime;
+    private float distToGround;
+    public float maxSpeed;
     
     //general events actions
 	//public event Action itemCollected = delegate{};
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start ()
 	{
+        distToGround = this.GetComponent<Collider>().bounds.extents.y;
         source = gameObject.GetComponent<AudioSource>();
         source.clip = itemcollectedsound;
         rb = GetComponent<Rigidbody>();
@@ -59,13 +61,26 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-		if(!touchingGround){ //Not currently working... 
+
+		if(!IsGrounded()){ //Not currently working... 
 			movement *= 0.1f;
 		}
-        movement = Maincamera.transform.rotation * movement;
 
+        Quaternion camera = Maincamera.transform.rotation;
+        movement = camera * movement;
+        movement.y = 0;
 
-        rb.AddForce (movement * speed);
+        rb.AddForce(movement * speed, ForceMode.VelocityChange);
+        //Max Speed Implemtation
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            Debug.Log("MAX SPEED");
+            float brakeSpeed = rb.velocity.magnitude - maxSpeed;  // calculate the speed decrease
+            Vector3 normalisedVelocity = rb.velocity.normalized;
+            Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;  // make the brake Vector3 value
+            rb.AddForce(-brakeVelocity, ForceMode.Impulse);  // apply opposing brake force
+        }
+        
 	}
 
 	void OnTriggerEnter(Collider other) 
@@ -86,22 +101,14 @@ public class PlayerController : MonoBehaviour {
             source.Play();
             collectedMovingTarget.Invoke(other.gameObject);
 		}
-		if (other.gameObject.CompareTag ("Ground")){
-			touchingGround = true;
-		}
 		if (other.gameObject.CompareTag ("Lights Off")){
             source.Play();
             lightsOff.Invoke(other.gameObject);
 		}
     }
 
-	void OnTriggerExit(Collider other)
-	{
-		if (other.gameObject.CompareTag ("Ground")){
-			touchingGround = false;
-		}
-	}
 
-
-
-}
+    Boolean IsGrounded() {
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+            }
+ }
