@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
-        Debug.Log(count);
-        countChanged.Invoke(count);
+        item.SetActive(false);
+        //countChanged.Invoke(count);
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
@@ -71,10 +71,11 @@ public class GameManager : MonoBehaviour {
 		//Move target to next destination
 	}
 
-	void lightsOut () {
+	void lightsOut (GameObject item) {
 		GameObject mainLight = GameObject.Find("Directional Light");
-		mainLight.active = false;
-	}
+        mainLight.SetActive(false);
+        onItemCollected(item);
+    }
 
 	void Update () {
 

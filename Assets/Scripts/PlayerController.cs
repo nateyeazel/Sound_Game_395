@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour {
 	//public event Action itemCollected = delegate{};
 	public event Action hitEnemy = delegate{};
 	public event Action fellOff = delegate{};
-	public event Action lightsOff = delegate{};
 	//public event Action collectedMovingTarget = delegate{};
 
     //Game Manager Events
@@ -28,7 +27,8 @@ public class PlayerController : MonoBehaviour {
     public event collectedMovingTargetEvent collectedMovingTarget;
     public delegate void ItemCollectedEvent(GameObject item);
     public event ItemCollectedEvent itemCollected;
-
+    public delegate void lightsOffEvent(GameObject item);
+    public event lightsOffEvent lightsOff;
 
     void Start ()
 	{
@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Pick Up"))
 		{
             source.Play();
-            other.gameObject.SetActive (false);
             itemCollected.Invoke(other.gameObject);
 
 		}
@@ -91,7 +90,8 @@ public class PlayerController : MonoBehaviour {
 			touchingGround = true;
 		}
 		if (other.gameObject.CompareTag ("Lights Off")){
-			lightsOff.Invoke();
+            source.Play();
+            lightsOff.Invoke(other.gameObject);
 		}
     }
 
