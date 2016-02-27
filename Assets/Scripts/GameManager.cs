@@ -45,25 +45,18 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
-        item.SetActive(false);
-        //countChanged.Invoke(count);
+        item.GetComponent<PickUp>().PickedUp();
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         scoreChanged.Invoke(score);
     }
 
-	void youLose () {
-		gameOver = true;
-        Time.timeScale = 0;
-		youLost.Invoke("Fell off edge");
-	}
 
 	void collectedMovingTarget (GameObject movingTarget) {
 		count += 1;
         float spawnTime = movingTarget.GetComponent<PickUp>().spawnTime;
-        //Update Location
-        movingTarget.GetComponent<PickUp>().MoveToNext(false);
+        movingTarget.GetComponent<PickUp>().PickedUp();
         //Move target to next destination
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
@@ -79,7 +72,14 @@ public class GameManager : MonoBehaviour {
         onItemCollected(item);
     }
 
-	void Update () {
+    void youLose()
+    {
+        gameOver = true;
+        Time.timeScale = 0;
+        youLost.Invoke("Fell off edge");
+    }
+
+    void Update () {
 
 		if(Time.timeSinceLevelLoad >= 30){
             GameObject target = GameObject.FindWithTag("Moving Target");

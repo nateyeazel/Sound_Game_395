@@ -4,41 +4,55 @@ using System.Collections.Generic;
 
 public class PickUp : MonoBehaviour {
     public float spawnTime;
-    float timeToCollect;
-    public string type;
-    public int maxLocations;
-    public Vector2 Xrange;
-    public Vector2 Yrange;
+    public int type=1;
+    //1 - Static -Default
+    //2 - Random Moving
+    //3 - List Moving
+    //4 - Random List?
+    //public int maxLocations;
+    public Vector2 Xrange;//
+    public Vector2 Yrange;//
     public List<Vector3> list = new List<Vector3>();
-    private int index;
+    private int index = 0;
     // Use this for initialization
     void Start () {
-        index = 0;
         spawnTime = Time.time;
-        //initiate type (random moving, static, list moving)?
 	}
 	
 	// Update is called once per frame
-    public void MoveToNext(bool random)
+    public void PickedUp()
     {
-        if (random)
-        {
-            float new_x = UnityEngine.Random.Range(-10f, 10f);
-            float new_z = UnityEngine.Random.Range(-10f, 10f);
-            this.transform.position = new Vector3(new_x, 0.5f, new_z);
-
+        if (type== 1) {
+            //Static Pickup just disable
+            this.gameObject.SetActive(false);
         }
-        else
+        else if (type == 2)
         {
+            //List Behavior
+            Debug.Log(list.Capacity);
             if (index < list.Capacity)
             {
                 this.gameObject.transform.position = list[index];
                 index += 1;
             }
-            if (index == list.Capacity)
+            else if (index >= list.Capacity)//once end of list is reached disable pick up
             {
                 this.gameObject.SetActive(false);
             }
+
+        }
+        else  if (type == 3)
+        {
+            //Move to Random (Maybe Set Limit?)
+            float new_x = UnityEngine.Random.Range(Xrange[0], Xrange[1]);
+            float new_z = UnityEngine.Random.Range(Yrange[0], Yrange[1]);
+            this.transform.position = new Vector3(new_x, 0.5f, new_z);
+
+        }
+        else
+        {
+            //Default to Normal Pickup Behavior
+            this.gameObject.SetActive(false);
         }
     }
 }
