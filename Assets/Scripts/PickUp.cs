@@ -37,7 +37,7 @@ public class PickUp : MonoBehaviour {
             }
             if (index == list.Capacity)
             {
-                this.gameObject.SetActive(false);
+//                this.gameObject.SetActive(false);
             }
         }
     }

@@ -308,7 +308,7 @@ Prefab:
       objectReference: {fileID: 123993093}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: speed
-      value: 20
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: JumpVelocity.y
@@ -325,6 +325,10 @@ Prefab:
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: flicker
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: maxSpeed
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}

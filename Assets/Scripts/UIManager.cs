@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		countdownText.text = string.Format("Time so far: {0}", Time.timeSinceLevelLoad);
         //limited to 1 second
 		if(Time.timeSinceLevelLoad <= 30)
         {
@@ -49,9 +50,9 @@ public class UIManager : MonoBehaviour {
 	{
 		count = newCount;
 		countText.text = "Collected: " + count.ToString ();
-		if (count >= 15)
+		if (count >= 2)
 		{
-			winText.text = "You Win!";
+			winText.text = "You Made it through the maze!";
 		}
 	}
 	void SetScoreText(int newScore)

@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionStay () {
 		//Jump effects.
-		if (Input.GetButtonDown ("Jump")) {
+		if (Input.GetButtonDown ("Jump") & IsGrounded()) {
 			this.GetComponent<Rigidbody>().AddForce(JumpVelocity, ForceMode.VelocityChange);
 		}
 	}

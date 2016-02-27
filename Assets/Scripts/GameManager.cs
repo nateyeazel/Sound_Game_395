@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
-        item.SetActive(false);
+//        item.SetActive(false);
         //countChanged.Invoke(count);
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
@@ -72,10 +72,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void lightsOut (GameObject item) {
+		item.GetComponent<PickUp>().MoveToNext(false);
+
 		GameObject mainLight = GameObject.Find("Directional Light");
 		mainLight.GetComponent<Light>().intensity = 0.1f; //Best way to make dark
 //		RenderSettings.skybox.color = new Vector4(0,0,0,0);
-//		RenderSettings.skybox = darkSky;
+		RenderSettings.skybox = darkSky;
         onItemCollected(item);
     }
 

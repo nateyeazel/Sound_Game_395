@@ -76,15 +76,15 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 094083e1167f844a785e92940dbb3c9e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.692
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1000
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -157,13 +157,13 @@ MonoBehaviour:
   bUseGlobalSourcePanner_: 0
   bUseGlobalRoomPanner_: 0
   fMinimumDistance_: 1
-  fMaximumDistance_: 10000
-  fFactor_: 1
+  fMaximumDistance_: 40
+  fFactor_: 1.75
   fDopplerIntensity_: 0.1
   customRolloffGain_: 1
   roomObjectId_: 0
   autoRoomId_: 0
-  bMaxMute_: 0
+  bMaxMute_: 1
   bDoppler_: 0
   bRoom_: 0
   bRoomAutoDetect_: 1
@@ -192,6 +192,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MaxDistance
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Volume
+      value: 0.692
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
