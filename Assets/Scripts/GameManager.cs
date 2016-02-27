@@ -34,9 +34,11 @@ public class GameManager : MonoBehaviour {
 		player = GameObject.Find("Player");
 		PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
+        pc.fellOff += youLose;
         pc.itemCollected += onItemCollected;
         pc.collectedMovingTarget += collectedMovingTarget;
 		pc.lightsOff += lightsOut;
+
         visibleObjects = true;
 		flicker = false;
 		count = 0;
