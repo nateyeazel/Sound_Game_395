@@ -9,11 +9,9 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	private Rigidbody rb;
     private GameObject Maincamera;
-	private bool touchingGround;
 	public Vector3 JumpVelocity;
     public AudioClip itemcollectedsound;
     private AudioSource source;
-    private float spawnTime;
     private float distToGround;
     public float maxSpeed;
     
@@ -37,7 +35,6 @@ public class PlayerController : MonoBehaviour {
         source = gameObject.GetComponent<AudioSource>();
         source.clip = itemcollectedsound;
         rb = GetComponent<Rigidbody>();
-		touchingGround = true;
         Maincamera = GameObject.Find("Main Camera");     //to be used for movement
         
 	}
@@ -88,22 +85,22 @@ public class PlayerController : MonoBehaviour {
 		{
             source.Play();
             itemCollected.Invoke(other.gameObject);
-
 		}
-
+        if (other.gameObject.CompareTag("Moving Target"))
+        {
+            source.Play();
+            collectedMovingTarget.Invoke(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("Lights Off"))
+        {
+            source.Play();
+            lightsOff.Invoke(other.gameObject);
+        }
         if (other.gameObject.CompareTag("Enemy"))
         {
 			hitEnemy.Invoke();
         }   
-		if (other.gameObject.CompareTag ("Moving Target"))
-		{
-            source.Play();
-            collectedMovingTarget.Invoke(other.gameObject);
-		}
-		if (other.gameObject.CompareTag ("Lights Off")){
-            source.Play();
-            lightsOff.Invoke(other.gameObject);
-		}
+
     }
 
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using UnityEngine.UI;
@@ -47,7 +47,12 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
+<<<<<<< HEAD
+//        item.SetActive(false);
+        //countChanged.Invoke(count);
+=======
         item.GetComponent<PickUp>().PickedUp();
+>>>>>>> origin/master
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
