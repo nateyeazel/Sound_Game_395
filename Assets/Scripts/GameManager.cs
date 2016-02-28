@@ -19,20 +19,32 @@ public class GameManager : MonoBehaviour {
 	public bool flicker;
 
 	private GameObject player;
-
-	//UI Manager events
-	public delegate void scoreChangedEvent(int newScore);
+    private GameObject levelconfig;
+    //UI Manager events
+    public delegate void UIInitialize(GameObject levelsettings);
+    public event UIInitialize UISetup;
+    public delegate void scoreChangedEvent(int newScore,int newCount);
 	public event scoreChangedEvent scoreChanged;
-	public delegate void countChangedEvent(int newCount);
-	public event countChangedEvent countChanged;
 	public delegate void youLostEvent(string lossType);
 	public event youLostEvent youLost;
 	public GameObject beacon;
 	public Material darkSky;
-
+    //
+    private int numToWin;
+    private int levelType;
+    private int timeLimit;
+    private int timetoBlindness;
 	void Start () {
 		player = GameObject.Find("Player");
-		PlayerController pc = player.GetComponent<PlayerController>();
+        levelconfig = GameObject.Find("LevelSettings");
+        LevelSettings ls = levelconfig.GetComponent<LevelSettings>();
+        numToWin = ls.numWin;
+        levelType = ls.levelType;
+        timeLimit = ls.timeLimit;
+        timetoBlindness = ls.timeToBlindness;
+        UISetup.Invoke(levelconfig);
+
+        PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
         pc.fellOff += youLose;
         pc.itemCollected += onItemCollected;
@@ -51,7 +63,9 @@ public class GameManager : MonoBehaviour {
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
-        scoreChanged.Invoke(score);
+        scoreChanged.Invoke(score,count);
+        //Update UI
+
     }
 
 
@@ -62,12 +76,11 @@ public class GameManager : MonoBehaviour {
         //Move target to next destination
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
-        scoreChanged.Invoke(score);
-
+        scoreChanged.Invoke(score,count);
 	}
 
 	void lightsOut (GameObject item) {
-		item.GetComponent<PickUp>().MoveToNext(false);
+		item.GetComponent<PickUp>().PickedUp();
 
 		GameObject mainLight = GameObject.Find("Directional Light");
 		mainLight.GetComponent<Light>().intensity = 0.1f; //Best way to make dark
@@ -85,7 +98,7 @@ public class GameManager : MonoBehaviour {
 
     void Update () {
 
-		if(Time.timeSinceLevelLoad >= 30){
+		if(Time.timeSinceLevelLoad >= timetoBlindness){
             GameObject target = GameObject.FindWithTag("Moving Target");
             if (visibleObjects){
 				visibleObjects = false;

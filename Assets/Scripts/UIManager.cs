@@ -9,8 +9,15 @@ public class UIManager : MonoBehaviour {
 	public Text scoreText;
     public Text countdownText;
     private GameObject player;
-	private int count;
+    //Level Settings
+    private int levelType;
+    private int timeLimit;
+    private int numToWin;
+    private int timetoBlindness;
+
+    private int count;
 	private int score;
+    
     // Use this for initialization
     void Start () {
 		GameObject gameManagerObject = GameObject.Find("GameManager");
@@ -19,48 +26,93 @@ public class UIManager : MonoBehaviour {
         countdownText = GameObject.Find("InGameUI").GetComponent<UIManager>().countdownText;
         countText = GameObject.Find("InGameUI").GetComponent<UIManager>().countText;
         scoreText = GameObject.Find("InGameUI").GetComponent<UIManager>().scoreText;
-        gm.countChanged += SetCountText;
-		gm.scoreChanged += SetScoreText;
+		gm.scoreChanged += updateScoreCount;
+        gm.UISetup += SetupUI;
 		gm.youLost += SetGameOver;
         winText.text = "";
 		countdownText.text = "";
-        //countdownText.text = string.Format("Time until blindness: {0}", Mathf.Max(30 - Time.timeSinceLevelLoad, 0));
-        countText.text = "Collected: 0";
-        scoreText.text = "Score: 0"; 
+        countText.text = "";
+        scoreText.text = ""; 
 
     }
 	
+    void SetupUI(GameObject LevelSettings) {
+        //Get Level Settings including type numToWin etc.
+        LevelSettings ls = LevelSettings.GetComponent<LevelSettings>();
+        levelType = ls.levelType;
+        numToWin = ls.numWin;
+        timeLimit = ls.timeLimit;
+        timetoBlindness = ls.timeToBlindness;
+        Debug.Log("LEVEL SETUP UI");
+        
+
+        return; }
+
 	// Update is called once per frame
 	void Update () {
-		countdownText.text = string.Format("Time so far: {0}", Time.timeSinceLevelLoad);
-        //limited to 1 second
-		if(Time.timeSinceLevelLoad <= 30)
-        {
-            //countdownText.text = string.Format("Time until blindness: {0}", 30 - Time.timeSinceLevelLoad);
-        } else {
-            countdownText.text = string.Format("");
-        }
+        UpdateUI();
 	}
+
+    void UpdateUI()
+    {
+        if(levelType == 1)//1 - Collect X ammount going blind after Y time                                            
+        {
+            Debug.Log("TYPE1");
+            if (Time.timeSinceLevelLoad <= timetoBlindness)
+            {
+                countdownText.text = string.Format("Time until blindness: {0}", timetoBlindness - Time.timeSinceLevelLoad);
+            }
+            else {
+                countdownText.text = string.Format("");
+            }
+            SetCountText();
+            SetScoreText();
+            //Case of Win
+            if (count >= numToWin) { winText.text = "You Win!"; }
+
+        }
+        else if(levelType == 2)//2 - Avoid Enemies for X time
+        {
+
+            countdownText.text = string.Format("Time left: {0}", timeLimit - Time.timeSinceLevelLoad);
+            //Case of Win
+            if (Time.timeSinceLevelLoad > timeLimit)
+            {
+                countdownText.text = string.Format("");
+                winText.text = "You Win!";
+            }
+
+        }
+        else if (levelType == 3)//3- Traverse Maze collecting X pickups and Return to the Beginning
+        {
+            countdownText.text = string.Format("Time so far: {0}", Time.timeSinceLevelLoad);
+            SetCountText();
+
+            //Case of Win
+            if (count >= numToWin)   {winText.text = "You Made it through the maze!";}
+
+        }
+
+    }
 
 	void SetGameOver (string lossType){
         winText.text = "Loser, hit R to restart";
 	}
 
-	void SetCountText (int newCount)
+	void SetCountText ()
 	{
-		count = newCount;
 		countText.text = "Collected: " + count.ToString ();
-		if (count >= 2)
-		{
-			winText.text = "You Made it through the maze!";
-		}
-	}
-	void SetScoreText(int newScore)
-	{
-		score = newScore;
-		scoreText.text = "Score: " + score.ToString();
-        count += 1;
-        SetCountText(count);
+    }
 
-	}
+
+    
+    void SetScoreText()
+	{
+        scoreText.text = "Score: " + score.ToString();
+    }
+    void updateScoreCount(int newScore,int newcount)
+    {
+       	score = newScore;
+        count = newcount;
+    }
 }
