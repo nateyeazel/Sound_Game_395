@@ -894,9 +894,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f130e656ede4e1649b2c1cf14f7aa15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 1
-  numWin: 10
-  timeToBlindness: 30
+  levelType: 2
+  numWin: 1
+  timeToBlindness: 0
   numBeacons: 0
   timeLimit: 30
 --- !u!4 &1184949845

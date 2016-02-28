@@ -43,7 +43,6 @@ public class UIManager : MonoBehaviour {
         numToWin = ls.numWin;
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
-        Debug.Log("LEVEL SETUP UI");
         
 
         return; }
@@ -57,7 +56,6 @@ public class UIManager : MonoBehaviour {
     {
         if(levelType == 1)//1 - Collect X ammount going blind after Y time                                            
         {
-            Debug.Log("TYPE1");
             if (Time.timeSinceLevelLoad <= timetoBlindness)
             {
                 countdownText.text = string.Format("Time until blindness: {0}", timetoBlindness - Time.timeSinceLevelLoad);
