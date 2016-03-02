@@ -34,7 +34,7 @@ public class PickUp : MonoBehaviour {
                 this.gameObject.transform.position = list[index];
                 index += 1;
             }
-            else if (index >= list.Capacity)//once end of list is reached disable pick up
+            else if (index >= list.Capacity -1)//once end of list is reached disable pick up
             {
                 this.gameObject.SetActive(false);
             }

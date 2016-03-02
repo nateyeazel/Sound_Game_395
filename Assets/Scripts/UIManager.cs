@@ -56,17 +56,34 @@ public class UIManager : MonoBehaviour {
     {
         if(levelType == 1)//1 - Collect X ammount going blind after Y time                                            
         {
+
             if (Time.timeSinceLevelLoad <= timetoBlindness)
             {
                 countdownText.text = string.Format("Time until blindness: {0}", timetoBlindness - Time.timeSinceLevelLoad);
+                if (Time.timeSinceLevelLoad <= 5)
+                { //Display Objective
+                    winText.text = string.Format("Collect {0} to Win", numToWin);
+
+                }
+                
+                else if (timetoBlindness - Time.timeSinceLevelLoad < 10 && timetoBlindness - Time.timeSinceLevelLoad >0)
+                {
+                    //if blind soon
+                    winText.text = string.Format("Blind in: {0}", Mathf.RoundToInt(timetoBlindness - Time.timeSinceLevelLoad));
+                }
+                else {
+                    winText.text = string.Format("");
+                }
+                //Case of Win
+                if (count >= numToWin) { winText.text = "You Win!"; }
             }
-            else {
+            else
+            {
                 countdownText.text = string.Format("");
             }
             SetCountText();
             SetScoreText();
-            //Case of Win
-            if (count >= numToWin) { winText.text = "You Win!"; }
+
 
         }
         else if(levelType == 2)//2 - Avoid Enemies for X time
@@ -74,6 +91,27 @@ public class UIManager : MonoBehaviour {
 
             countdownText.text = string.Format("Time left: {0}", timeLimit - Time.timeSinceLevelLoad);
             //Case of Win
+            if (Time.timeSinceLevelLoad <= 5)
+            { //Display Objective
+                winText.text = string.Format("Avoid Enemies for {0} Seconds to Win", timeLimit);
+
+            }
+
+            else if (timeLimit - Time.timeSinceLevelLoad < 10 && timeLimit - Time.timeSinceLevelLoad > 0)
+            {
+                //if soonto lose
+                winText.text = string.Format("Gameover in: {0}", Mathf.RoundToInt( timeLimit- Time.timeSinceLevelLoad));
+            }
+            else if (timeLimit - Time.timeSinceLevelLoad < 0) {
+                SetGameOver("Time!");
+            }
+            else
+            {
+                winText.text = "";
+            }
+
+
+
             if (Time.timeSinceLevelLoad > timeLimit)
             {
                 countdownText.text = string.Format("");
