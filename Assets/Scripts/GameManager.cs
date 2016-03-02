@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
     private int levelType;
     private int timeLimit;
     private int timetoBlindness;
+
 	void Start () {
 		player = GameObject.Find("Player");
         levelconfig = GameObject.Find("LevelSettings");

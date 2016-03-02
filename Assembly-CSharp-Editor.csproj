@@ -48,6 +48,7 @@
      <Compile Include="Assets\TBE_3Dception\Upgrade\Editor\TBE_UpgradeUtils.cs" />
      <Compile Include="Assets\TBE_3Dception\Upgrade\Editor\TBE_UpgradeWindow.cs" />
      <Compile Include="Assets\TBE_3Dception\Utilities\Editor\TBE_SetupDiagnose.cs" />
+     <None Include="Assets\prototype_textures\readme.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TBE_3Dception\Components\TBE_Components.XML" />
+    <None Include="Assets\prototype_textures\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
