@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour {
     private int timetoBlindness;
 
 	private bool wonLevel;
+    private bool lost;
     private int count;
 	private int score;
     
@@ -63,7 +64,8 @@ public class UIManager : MonoBehaviour {
 				Time.timeScale = 1;
 			}
 		}
-        UpdateUI();
+        if (!lost) { UpdateUI();}
+        
 	}
 
     void UpdateUI()
@@ -97,15 +99,13 @@ public class UIManager : MonoBehaviour {
             }
             SetCountText();
             SetScoreText();
-<<<<<<< HEAD
 
-=======
             //Case of Win
             if (count >= numToWin) { 
 				wonLevel = true;
 				winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
 			}
->>>>>>> origin/master
+
 
         }
         else if(levelType == 2)//2 - Avoid Enemies for X time
@@ -119,10 +119,10 @@ public class UIManager : MonoBehaviour {
 
             }
 
-            else if (timeLimit - Time.timeSinceLevelLoad < 10 && timeLimit - Time.timeSinceLevelLoad > 0)
+            else if (timeLimit - Time.timeSinceLevelLoad < 5 && timeLimit - Time.timeSinceLevelLoad > 0)
             {
                 //if soonto lose
-                winText.text = string.Format("Gameover in: {0}", Mathf.RoundToInt( timeLimit- Time.timeSinceLevelLoad));
+                winText.text = string.Format("Only {0} Seconds Left!", Mathf.RoundToInt( timeLimit- Time.timeSinceLevelLoad));
             }
             else if (timeLimit - Time.timeSinceLevelLoad < 0) {
                 SetGameOver("Time!");
@@ -158,6 +158,7 @@ public class UIManager : MonoBehaviour {
     }
 
 	void SetGameOver (string lossType){
+        lost = true;
         winText.text = "Loser, hit R to restart";
 	}
 

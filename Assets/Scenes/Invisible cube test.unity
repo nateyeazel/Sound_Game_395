@@ -895,8 +895,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelType: 1
-  numWin: 10
-  timeToBlindness: 30
+  numWin: 15
+  timeToBlindness: 20
   numBeacons: 0
   timeLimit: 30
 --- !u!4 &1184949845
