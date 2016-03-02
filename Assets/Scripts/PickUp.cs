@@ -29,15 +29,14 @@ public class PickUp : MonoBehaviour {
         else if (type == 2)
         {
             //List Behavior
-            Debug.Log(list.Capacity);
-            if (index < list.Capacity)
+            if (index < list.Capacity - 1)
             {
                 this.gameObject.transform.position = list[index];
                 index += 1;
             }
             else if (index >= list.Capacity)//once end of list is reached disable pick up
             {
-//                this.gameObject.SetActive(false);
+                this.gameObject.SetActive(false);
             }
 
         }
