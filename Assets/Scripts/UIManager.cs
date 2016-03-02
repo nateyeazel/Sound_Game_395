@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
     public Canvas UI;
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour {
     private int numToWin;
     private int timetoBlindness;
 
+	private bool wonLevel;
     private int count;
 	private int score;
     
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour {
 		gm.scoreChanged += updateScoreCount;
         gm.UISetup += SetupUI;
 		gm.youLost += SetGameOver;
+		wonLevel = false;
         winText.text = "";
 		countdownText.text = "";
         countText.text = "";
@@ -49,6 +52,17 @@ public class UIManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (wonLevel) {
+			if(Input.GetKeyDown("m")){
+				SceneManager.LoadScene("MainMenu");
+				Time.timeScale = 1;
+			}
+
+			if(Input.GetKeyDown("r")){
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+				Time.timeScale = 1;
+			}
+		}
         UpdateUI();
 	}
 
@@ -66,7 +80,10 @@ public class UIManager : MonoBehaviour {
             SetCountText();
             SetScoreText();
             //Case of Win
-            if (count >= numToWin) { winText.text = "You Win!"; }
+            if (count >= numToWin) { 
+				wonLevel = true;
+				winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
+			}
 
         }
         else if(levelType == 2)//2 - Avoid Enemies for X time
@@ -77,7 +94,8 @@ public class UIManager : MonoBehaviour {
             if (Time.timeSinceLevelLoad > timeLimit)
             {
                 countdownText.text = string.Format("");
-                winText.text = "You Win!";
+				winText.text = "You Win! \n Press M to return to the main menu or R to retry";
+				wonLevel = true;
             }
 
         }
@@ -87,7 +105,10 @@ public class UIManager : MonoBehaviour {
             SetCountText();
 
             //Case of Win
-            if (count >= numToWin)   {winText.text = "You Made it through the maze!";}
+            if (count >= numToWin)   {
+				wonLevel = true;
+				winText.text = "You Made it through the maze! \n Press M to return to the main menu or R to retry";
+			}
 
         }
 
