@@ -97,15 +97,12 @@ public class UIManager : MonoBehaviour {
             }
             SetCountText();
             SetScoreText();
-<<<<<<< HEAD
 
-=======
             //Case of Win
             if (count >= numToWin) { 
 				wonLevel = true;
 				winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
 			}
->>>>>>> origin/master
 
         }
         else if(levelType == 2)//2 - Avoid Enemies for X time
