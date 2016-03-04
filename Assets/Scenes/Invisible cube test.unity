@@ -205,11 +205,15 @@ Prefab:
       objectReference: {fileID: 8300000, guid: c3efb831806517f4387d78ff3c134481, type: 3}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: maxSpeed
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: speed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251874, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
@@ -895,7 +899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelType: 1
-  numWin: 15
+  numWin: 10
   timeToBlindness: 20
   numBeacons: 0
   timeLimit: 30

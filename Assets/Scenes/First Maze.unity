@@ -2264,7 +2264,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -56.68006
+      value: -52.9
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2272,7 +2272,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -15.706161
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2292,7 +2292,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 190758, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_TagString
@@ -2346,7 +2346,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11403944, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
       propertyPath: levelType
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403944, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
+      propertyPath: timeToBlindness
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
@@ -2951,8 +2955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b4ea64b8b9de640a3643af5140d3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
-  delay: 0
+  clip: {fileID: 8300000, guid: 98a2f5befa1fd488ba3627bdc33be7f1, type: 3}
+  delay: 2
 --- !u!108 &1760592030
 Light:
   m_ObjectHideFlags: 0
@@ -3002,6 +3006,7 @@ MonoBehaviour:
   Xrange: {x: 0, y: 0}
   Yrange: {x: 0, y: 0}
   list:
+  - {x: -4, y: 0.5, z: 26}
   - {x: -4, y: 0.5, z: 26}
 --- !u!1 &1762941831
 GameObject:
