@@ -9,13 +9,16 @@ public class UIManager : MonoBehaviour {
     public Text countText;
 	public Text scoreText;
     public Text countdownText;
+    public GameObject pauseMenu;
+    public GameObject lossMenu;
+    public GameObject winMenu;
+    private bool paused = false;
     private GameObject player;
     //Level Settings
     private int levelType;
     private int timeLimit;
     private int numToWin;
     private int timetoBlindness;
-
 	private bool wonLevel;
     private bool lost;
     private int count;
@@ -23,13 +26,17 @@ public class UIManager : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
+        SetupUI();
 		GameObject gameManagerObject = GameObject.Find("GameManager");
 		GameManager gm = gameManagerObject.GetComponent<GameManager>();
         winText = GameObject.Find("InGameUI").GetComponent<UIManager>().winText;
         countdownText = GameObject.Find("InGameUI").GetComponent<UIManager>().countdownText;
         countText = GameObject.Find("InGameUI").GetComponent<UIManager>().countText;
         scoreText = GameObject.Find("InGameUI").GetComponent<UIManager>().scoreText;
-		gm.scoreChanged += updateScoreCount;
+        pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
+        lossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().lossMenu;
+        winMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().winMenu;
+        gm.scoreChanged += updateScoreCount;
         gm.UISetup += SetupUI;
 		gm.youLost += SetGameOver;
 		wonLevel = false;
@@ -40,9 +47,10 @@ public class UIManager : MonoBehaviour {
 
     }
 	
-    void SetupUI(GameObject LevelSettings) {
+    void SetupUI() {
         //Get Level Settings including type numToWin etc.
-        LevelSettings ls = LevelSettings.GetComponent<LevelSettings>();
+        GameObject levelconfig = GameObject.Find("LevelSettings");
+        LevelSettings ls = levelconfig.GetComponent<LevelSettings>();
         levelType = ls.levelType;
         numToWin = ls.numWin;
         timeLimit = ls.timeLimit;
@@ -53,18 +61,49 @@ public class UIManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (wonLevel) {
-			if(Input.GetKeyDown("m")){
+        if (Input.GetKeyDown("p"))
+        {
+            if (paused)
+            {
+                paused = false;
+                pauseMenu.gameObject.SetActive(false);
+                Cursor.visible = false;
+                Time.timeScale = 1;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                pauseMenu.gameObject.SetActive(true);
+                Cursor.visible = true;
+                paused = true;
+
+            }
+        }
+
+
+
+        if (wonLevel) {
+            Cursor.visible = true;
+            winMenu.SetActive(true);
+            if (Input.GetKeyDown("m")){
 				SceneManager.LoadScene("MainMenu");
 				Time.timeScale = 1;
 			}
 
 			if(Input.GetKeyDown("r")){
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-				Time.timeScale = 1;
+                Time.timeScale = 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+				
 			}
 		}
         if (!lost) { UpdateUI();}
+        else
+        {
+            //Player Lost Show Lost Menu
+            Time.timeScale = 0;
+            lossMenu.SetActive(true);
+            Cursor.visible = true;
+        }
         
 	}
 
@@ -72,7 +111,6 @@ public class UIManager : MonoBehaviour {
     {
         if(levelType == 1)//1 - Collect X ammount going blind after Y time                                            
         {
-
             if (Time.timeSinceLevelLoad <= timetoBlindness)
             {
                 countdownText.text = string.Format("Time until blindness: {0}", timetoBlindness - Time.timeSinceLevelLoad);
@@ -81,8 +119,7 @@ public class UIManager : MonoBehaviour {
                     winText.text = string.Format("Collect {0} to Win", numToWin);
 
                 }
-                
-                else if (timetoBlindness - Time.timeSinceLevelLoad < 10 && timetoBlindness - Time.timeSinceLevelLoad >0)
+                else if (timetoBlindness - Time.timeSinceLevelLoad < 10 & timetoBlindness - Time.timeSinceLevelLoad >0)
                 {
                     //if blind soon
                     winText.text = string.Format("Blind in: {0}", Mathf.RoundToInt(timetoBlindness - Time.timeSinceLevelLoad));
@@ -91,11 +128,12 @@ public class UIManager : MonoBehaviour {
                     winText.text = string.Format("");
                 }
                 //Case of Win
-                if (count >= numToWin) { winText.text = "You Win!"; }
+            if (count >= numToWin) { winText.text = "You Win!"; }
             }
             else
             {
                 countdownText.text = string.Format("");
+                winText.text = "";
             }
             SetCountText();
             SetScoreText();
@@ -103,7 +141,8 @@ public class UIManager : MonoBehaviour {
             //Case of Win
             if (count >= numToWin) { 
 				wonLevel = true;
-				winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
+                Time.timeScale = 0.0f;
+				//winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
 			}
 
 
@@ -137,8 +176,10 @@ public class UIManager : MonoBehaviour {
             if (Time.timeSinceLevelLoad > timeLimit)
             {
                 countdownText.text = string.Format("");
-				winText.text = "You Win! \n Press M to return to the main menu or R to retry";
-				wonLevel = true;
+                winText.text = "";
+				//winText.text = "You Win! \n Press M to return to the main menu or R to retry";
+                Time.timeScale = 0.0f;
+                wonLevel = true;
             }
 
         }
@@ -151,13 +192,13 @@ public class UIManager : MonoBehaviour {
 				winText.text = string.Format("Collect {0} to Win", numToWin);
 			} else if (count >= numToWin)   {
 				wonLevel = true;
-				winText.text = "You Made it through the maze! \n Press M to return to the main menu or R to retry";
-			}
+				//winText.text = "You Made it through the maze! \n Press M to return to the main menu or R to retry";
+                Time.timeScale = 0.0f;
+            }
 			else {
 				countdownText.text = string.Format("Final Time: {0}", Time.timeSinceLevelLoad);
 				winText.text = string.Format("");
 			}
-            //Case of Win
             
 
         }
@@ -166,7 +207,6 @@ public class UIManager : MonoBehaviour {
 
 	void SetGameOver (string lossType){
         lost = true;
-        winText.text = "Loser, hit R to restart";
 	}
 
 	void SetCountText ()
@@ -184,5 +224,18 @@ public class UIManager : MonoBehaviour {
     {
        	score = newScore;
         count = newcount;
+    }
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
+
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        GameObject pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
+        pauseMenu.SetActive(false);
     }
 }

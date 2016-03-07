@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 	private int count;
 	private int score;
 
-    private Canvas MainMenu;
+//    private Canvas MainMenu;
     private Canvas UI;
 	private bool visibleObjects;
 	public bool flicker;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject player;
     private GameObject levelconfig;
     //UI Manager events
-    public delegate void UIInitialize(GameObject levelsettings);
+    public delegate void UIInitialize();
     public event UIInitialize UISetup;
     public delegate void scoreChangedEvent(int newScore,int newCount);
 	public event scoreChangedEvent scoreChanged;
@@ -31,20 +31,21 @@ public class GameManager : MonoBehaviour {
 	public Material darkSky;
     //
     private int numToWin;
+    private bool restart = false;
     private int levelType;
     private int timeLimit;
     private int timetoBlindness;
 
 	void Start () {
-		player = GameObject.Find("Player");
+        Time.timeScale = 1;
+        player = GameObject.Find("Player");
         levelconfig = GameObject.Find("LevelSettings");
         LevelSettings ls = levelconfig.GetComponent<LevelSettings>();
         numToWin = ls.numWin;
         levelType = ls.levelType;
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
-        UISetup.Invoke(levelconfig);
-
+        UISetup.Invoke();
         PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
         pc.fellOff += youLose;
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour {
         //Move target to next destination
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
-        scoreChanged.Invoke(score,count);
+        scoreChanged(score, count);
 	}
 
 	void lightsOut (GameObject item) {
@@ -120,29 +121,24 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-        if (gameOver && Input.GetKeyDown("r"))
+        if ((gameOver && Input.GetKeyDown("r"))|restart)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
         }
 
-        if (Input.GetKeyDown("p"))
-        {
-            if (paused)
-            {
-                paused = false;
-                Time.timeScale = 1;
-            }
-            else
-            {
-                Time.timeScale = 0;
-                paused = true;
-            }
-        }
-		if (Input.GetKeyDown("b")){
+
+        if (Input.GetKeyDown("b")){
 			Transform currentLocation = player.transform;
 			Vector3 beaconLocation = player.transform.position + new Vector3 (0, 1, 0);
 			Instantiate(beacon, beaconLocation, Quaternion.identity);
 		}
     }
+
+    public void Restart()
+    {
+        restart = true;
+    }
+    
 }
