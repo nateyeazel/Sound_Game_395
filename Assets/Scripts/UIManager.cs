@@ -163,9 +163,6 @@ public class UIManager : MonoBehaviour {
                 //if soonto lose
                 winText.text = string.Format("Only {0} Seconds Left!", Mathf.RoundToInt( timeLimit- Time.timeSinceLevelLoad));
             }
-            else if (timeLimit - Time.timeSinceLevelLoad < 0) {
-                SetGameOver("Time!");
-            }
             else
             {
                 winText.text = "";

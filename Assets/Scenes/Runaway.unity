@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.1
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 5, y: 0, z: 0}
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 4, y: 0, z: 0}
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: -4, y: 0, z: 0}
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 4, y: 0, z: 0}
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 658013164}
-  speedmultiplier: 0.1
+  speedmultiplier: 5
   radius: 100
 --- !u!114 &351326375
 MonoBehaviour:
@@ -1184,22 +1184,6 @@ MonoBehaviour:
   bRoomAutoDetect_: 1
   bSpatialize_: 1
   erRoomObject_: {fileID: 0}
---- !u!114 &351326376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 351326373}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9babf0a331833fd4b94258ccacde0b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.075
-  list:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: -18}
 --- !u!82 &351326377
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2634,7 +2618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: -4, y: 0, z: 0}
@@ -3100,7 +3084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.1
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 5, y: 0, z: 0}
@@ -3236,7 +3220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.1
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 5, y: 0, z: 0}
@@ -3344,20 +3328,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &1101413500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1101413490}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76276a016ca07042a7067d5af3fbb49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 658013164}
-  speedmultiplier: 0.1
-  radius: 100
 --- !u!1 &1184949843
 GameObject:
   m_ObjectHideFlags: 0
@@ -3401,7 +3371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 23
 --- !u!1 &1233746222 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 190758, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
@@ -3462,7 +3432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: -4, y: 0, z: 0}
@@ -4050,7 +4020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: -4, y: 0, z: 0}
@@ -4328,7 +4298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 4, y: 0, z: 0}
@@ -4544,12 +4514,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5499862, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_Constraints
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2332046, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8367c78f0dbfa0741834a07ee58fa2a0, type: 2}
+    - target: {fileID: 5499862, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 190758, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
   m_IsPrefabParent: 0
@@ -4755,7 +4733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
-  speedmultiplier: 0.05
+  speedmultiplier: 5
   list:
   - {x: 0, y: 0, z: 0}
   - {x: 4, y: 0, z: 0}
@@ -4801,7 +4779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 658013164}
-  speedmultiplier: 0.1
+  speedmultiplier: 1
   radius: 10
 --- !u!82 &1819497603
 AudioSource:

@@ -26,7 +26,7 @@ public class FollowPath : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector3.MoveTowards(transform.position, target, speedmultiplier);
+        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speedmultiplier);
         
         if(transform.position == target)
         {

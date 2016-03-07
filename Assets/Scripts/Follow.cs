@@ -21,9 +21,10 @@ public class Follow : MonoBehaviour {
 	void Update () {
         if (Vector3.Distance(target.position,mytransform.position) < radius)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speedmultiplier);
-
-//            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime*speedmultiplier );
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime *speedmultiplier);        
+            //this.gameObject.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position).normalized * speedmultiplier * Time.smoothDeltaTime);
+          //  transform.LookAt(target);
+          //  this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(0, 0, speedmultiplier);
         }
 
     }
