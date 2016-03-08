@@ -149,7 +149,8 @@ public class GameManager : MonoBehaviour {
                 beaconsChanged.Invoke(numBeacons);
                 Transform currentLocation = player.transform;
                 Vector3 beaconLocation = player.transform.position + new Vector3(0, 1, 0);
-                Instantiate(beacon, beaconLocation, Quaternion.identity);
+				GameObject myBeacon =  Instantiate(beacon, beaconLocation, Quaternion.identity) as GameObject;
+				myBeacon.GetComponent<AudioSource>().pitch += 0.5f * numBeacons;
             }
             else {
                 //Display No beacons left message

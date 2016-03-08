@@ -2268,7 +2268,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -52.9
+      value: -57.7
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2276,7 +2276,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.5
+      value: 14.9
       objectReference: {fileID: 0}
     - target: {fileID: 445890, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2355,6 +2355,10 @@ Prefab:
     - target: {fileID: 11403944, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
       propertyPath: timeToBlindness
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403944, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
+      propertyPath: numBeacons
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
@@ -2892,7 +2896,7 @@ AudioSource:
   Spatialize: 1
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 5.7671585
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
