@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour {
     private int levelType;
     private int timeLimit;
     private int numToWin;
+    private int numBeacons;
     private int timetoBlindness;
 	private bool wonLevel;
     private bool lost;
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour {
         lossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().lossMenu;
         winMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().winMenu;
         gm.scoreChanged += updateScoreCount;
+        gm.beaconsChanged += updateBeaconCount;
         gm.UISetup += SetupUI;
 		gm.youLost += SetGameOver;
 		wonLevel = false;
@@ -55,7 +57,7 @@ public class UIManager : MonoBehaviour {
         numToWin = ls.numWin;
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
-        
+        numBeacons = ls.numBeacons;
 
         return; }
 
@@ -222,6 +224,17 @@ public class UIManager : MonoBehaviour {
        	score = newScore;
         count = newcount;
     }
+
+    void updateBeaconCount(int newnumBeacons)
+    {
+        numBeacons = newnumBeacons;
+        if(numBeacons == 0)
+        {
+            //Show no Beacons Message
+            Debug.Log("No More Beacons!");
+        }
+    }
+
     public void MainMenu()
     {
         Time.timeScale = 1;

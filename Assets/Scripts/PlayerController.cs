@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour {
     public event ItemCollectedEvent itemCollected;
     public delegate void lightsOffEvent(GameObject item);
     public event lightsOffEvent lightsOff;
-
+    public delegate void beaconCollectedEvent(GameObject beacon);
+    public event beaconCollectedEvent beaconCollected;
     void Start ()
 	{
         distToGround = this.GetComponent<Collider>().bounds.extents.y;
@@ -99,8 +100,11 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.CompareTag("Enemy"))
         {
 			hitEnemy.Invoke();
-        }   
-
+        }
+        if (other.gameObject.CompareTag("Beacon"))
+        {
+            beaconCollected.Invoke(other.gameObject);
+        }
     }
 
 

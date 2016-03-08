@@ -8,8 +8,7 @@ public class GameManager : MonoBehaviour {
 
 
     private bool gameOver;
-    private bool paused = false;
-    private float difficulty;
+    //private float difficulty;
 	private int count;
 	private int score;
 
@@ -25,7 +24,9 @@ public class GameManager : MonoBehaviour {
     public event UIInitialize UISetup;
     public delegate void scoreChangedEvent(int newScore,int newCount);
 	public event scoreChangedEvent scoreChanged;
-	public delegate void youLostEvent(string lossType);
+    public delegate void beaconsChangedEvent(int newnumBeacons);
+    public event beaconsChangedEvent beaconsChanged;
+    public delegate void youLostEvent(string lossType);
 	public event youLostEvent youLost;
 	public GameObject beacon;
 	public Material darkSky;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
     private int levelType;
     private int timeLimit;
     private int timetoBlindness;
+    private int numBeacons;
 
 	void Start () {
         Time.timeScale = 1;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour {
         levelType = ls.levelType;
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
+        numBeacons = ls.numBeacons;
         UISetup.Invoke();
         PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour {
         pc.itemCollected += onItemCollected;
         pc.collectedMovingTarget += collectedMovingTarget;
 		pc.lightsOff += lightsOut;
+        pc.beaconCollected += collectedBeacon;
 
         visibleObjects = true;
 		flicker = false;
@@ -80,6 +84,15 @@ public class GameManager : MonoBehaviour {
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
         scoreChanged(score, count);
 	}
+
+    void collectedBeacon(GameObject beacon)
+    {
+        numBeacons += 1;
+        beaconsChanged.Invoke(numBeacons);
+        beacon.SetActive(false);
+        
+
+    }
 
 	void lightsOut (GameObject item) {
 		item.GetComponent<PickUp>().PickedUp();
@@ -130,9 +143,19 @@ public class GameManager : MonoBehaviour {
 
 
         if (Input.GetKeyDown("b")){
-			Transform currentLocation = player.transform;
-			Vector3 beaconLocation = player.transform.position + new Vector3 (0, 1, 0);
-			Instantiate(beacon, beaconLocation, Quaternion.identity);
+            if (numBeacons > 0)
+            {
+                numBeacons -= 1;
+                beaconsChanged.Invoke(numBeacons);
+                Transform currentLocation = player.transform;
+                Vector3 beaconLocation = player.transform.position + new Vector3(0, 1, 0);
+                Instantiate(beacon, beaconLocation, Quaternion.identity);
+            }
+            else {
+                //Display No beacons left message
+                beaconsChanged.Invoke(numBeacons);
+                
+            }
 		}
     }
 

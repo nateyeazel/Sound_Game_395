@@ -3,6 +3,8 @@ using System.Collections;
 
 
 public class LevelSettings : MonoBehaviour {
+    //level name
+    public string levelname;
     public int levelType = 1; //default to level type 1
                               //1 - Collect X ammount going blind after Y time
                               //2 - Avoid Enemies for X time
@@ -16,7 +18,7 @@ public class LevelSettings : MonoBehaviour {
     public int numBeacons;
     //Time limit for enemy avoidance / timed mazes?
     public int timeLimit = 30;//Default to 30 seconds
-
+    
     // Use this for initialization
     void Start () {
 	
