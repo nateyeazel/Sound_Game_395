@@ -29,6 +29,8 @@ public class PickUp : MonoBehaviour {
         else if (type == 2)
         {
             //List Behavior
+			this.GetComponent<AudioSource>().Stop();
+			this.GetComponent<PlaySound>().delay = 10;
             if (index < list.Capacity)
             {
                 this.gameObject.transform.position = list[index];
