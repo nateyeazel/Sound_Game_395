@@ -270,7 +270,8 @@ public class UIManager : MonoBehaviour {
 		string oldName;
 		for(int i=0;i<5;i++){
 			oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
-			if(oldName == ""){ //If the score hasn't been set yet
+            oldScore= PlayerPrefs.GetFloat(i + levelname + "HScore");
+            if (oldName == "" && oldScore ==0){ //If the score hasn't been set yet
 				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 				newScore = 0;

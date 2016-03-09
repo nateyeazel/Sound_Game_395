@@ -358,7 +358,19 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11460412, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+    - target: {fileID: 180984, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 178246, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447806, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11421360, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
       propertyPath: m_Text
       value: 
       objectReference: {fileID: 0}
