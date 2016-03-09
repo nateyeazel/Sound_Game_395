@@ -13,7 +13,9 @@ public class UIManager : MonoBehaviour {
     public GameObject lossMenu;
     public GameObject winMenu;
 	public GameObject inputName;
-	public GameObject highscoreMenu;
+    public GameObject inputName2;
+    public GameObject highscoreMenu;
+    public GameObject surviveLossMenu;
     private bool paused = false;
     private GameObject player;
     //Level Settings
@@ -28,7 +30,7 @@ public class UIManager : MonoBehaviour {
     private bool noBeacons;
     private int count;
 	private float score;
-    
+    private bool inHSMenu;
     // Use this for initialization
     void Start () {
         SetupUI();
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour {
         pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
         lossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().lossMenu;
         winMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().winMenu;
+        surviveLossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().surviveLossMenu;
+        highscoreMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().highscoreMenu;
         gm.scoreChanged += updateScoreCount;
         gm.beaconsChanged += updateBeaconCount;
         gm.UISetup += SetupUI;
@@ -91,14 +95,28 @@ public class UIManager : MonoBehaviour {
 
         if (wonLevel) {
             Cursor.visible = true;
+            if (Input.GetKeyDown("m")){
+				SceneManager.LoadScene("MainMenu");
+				Time.timeScale = 1;
+			}
 		}
 		if (!lost && !wonLevel) { UpdateUI();}
-		if(lost)
+        if (lost & !highscoreMenu.activeInHierarchy)
         {
-            //Player Lost Show Lost Menu
             Time.timeScale = 0;
-            lossMenu.SetActive(true);
             Cursor.visible = true;
+            //Player Lost Show Lost Menu
+            if (levelType == 2) {
+                surviveLossMenu.SetActive(true);
+                score = Time.timeSinceLevelLoad;
+                GameObject scoreresult = GameObject.Find("Score2");
+                scoreresult.GetComponent<Text>().text = "You survived for: " + score.ToString();
+            }
+            else
+            {
+                lossMenu.SetActive(true);
+            }
+            
         }
         
 	}
@@ -146,30 +164,16 @@ public class UIManager : MonoBehaviour {
         else if (levelType == 2)//2 - Avoid Enemies for X time
         {
 
-            countdownText.text = string.Format("Time left: {0}", timeLimit - Time.timeSinceLevelLoad);
+            countdownText.text = string.Format("Time: {0}", Time.timeSinceLevelLoad);
             //Case of Win
             if (Time.timeSinceLevelLoad <= 5)
             { //Display Objective
-                winText.text = string.Format("Avoid Enemies for {0} Seconds to Win", timeLimit);
+                winText.text = string.Format("Survive as long as possible!");
 
-            }
-
-            else if (timeLimit - Time.timeSinceLevelLoad < 5 && timeLimit - Time.timeSinceLevelLoad > 0)
-            {
-                winText.text = string.Format("Only {0} Seconds Left!", Mathf.RoundToInt(timeLimit - Time.timeSinceLevelLoad));
             }
             else
             {
                 winText.text = "";
-            }
-
-
-
-            if (Time.timeSinceLevelLoad > timeLimit)
-            {
-                countdownText.text = string.Format("");
-				wonGame();
-                wonLevel = true;
             }
 
         }
@@ -257,12 +261,17 @@ public class UIManager : MonoBehaviour {
 
 	public void AddScore(){
 		float newScore = score;
-		string newName = inputName.GetComponent<Text>().text;
+        string newName;
+        if (levelType == 2)
+        {newName = inputName2.GetComponent<Text>().text;}
+        else
+        { newName = inputName.GetComponent<Text>().text; }
 		float oldScore;
 		string oldName;
 		for(int i=0;i<5;i++){
-			oldName = PlayerPrefs.GetString(i+"HScoreName");
-			if(oldName == ""){ //If the score hasn't been set yet
+			oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
+            oldScore= PlayerPrefs.GetFloat(i + levelname + "HScore");
+            if (oldName == "" && oldScore ==0){ //If the score hasn't been set yet
 				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 				newScore = 0;
@@ -274,7 +283,7 @@ public class UIManager : MonoBehaviour {
 					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")<newScore){ 
 						// new score is higher than the stored score
 						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
-						oldName = PlayerPrefs.GetString(i+"HScoreName");
+						oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
 						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 						newScore = oldScore;
@@ -284,7 +293,7 @@ public class UIManager : MonoBehaviour {
 					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")>newScore){ //Lower is better
 						// new score is lower than the stored score
 						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
-						oldName = PlayerPrefs.GetString(i+"HScoreName");
+						oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
 						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 						newScore = oldScore;
@@ -301,12 +310,12 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void LoadHScore(){
-
+        inHSMenu = true;
 		highscoreMenu.SetActive(true);
 		winMenu.SetActive(false);
 		pauseMenu.SetActive(false);
 		lossMenu.SetActive(false);
-
+        surviveLossMenu.SetActive(false);
 		Text[] highscoreTexts = highscoreMenu.GetComponentsInChildren<Text>();
 		for(int i =0; i < 5; i++){
 			highscoreTexts[2*i + 3].text = PlayerPrefs.GetString(i+levelname+"HScoreName");
