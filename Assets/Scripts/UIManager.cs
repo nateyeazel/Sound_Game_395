@@ -73,17 +73,6 @@ public class UIManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        
-
-
-
-        if (wonLevel) {
-            Cursor.visible = true;
-            if (Input.GetKeyDown("m")){
-				SceneManager.LoadScene("MainMenu");
-				Time.timeScale = 1;
-			}
-		}
 		if (!lost && !wonLevel) { 
 			if (Input.GetKeyDown("p"))
 			{
