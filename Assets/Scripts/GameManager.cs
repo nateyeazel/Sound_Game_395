@@ -113,23 +113,25 @@ public class GameManager : MonoBehaviour {
 
     void Update () {
 
-		if(Time.timeSinceLevelLoad >= timetoBlindness){
-            GameObject target = GameObject.FindWithTag("Moving Target");
-            if (visibleObjects){
-				visibleObjects = false;
-				target.GetComponent<Renderer>().enabled = false;
-				target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
-			}
-
-			if (flicker)
-			{
-				if ((int)Time.realtimeSinceStartup % 5 == 0)
-				{
-					target.GetComponent<Renderer>().enabled = true;
-				}
-				else if ((int)Time.realtimeSinceStartup % 5 == 1)
-				{
+		if(levelType == 1){
+			if(Time.timeSinceLevelLoad >= timetoBlindness){
+	            GameObject target = GameObject.FindWithTag("Moving Target");
+	            if (visibleObjects){
+					visibleObjects = false;
 					target.GetComponent<Renderer>().enabled = false;
+					target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
+				}
+
+				if (flicker)
+				{
+					if ((int)Time.realtimeSinceStartup % 5 == 0)
+					{
+						target.GetComponent<Renderer>().enabled = true;
+					}
+					else if ((int)Time.realtimeSinceStartup % 5 == 1)
+					{
+						target.GetComponent<Renderer>().enabled = false;
+					}
 				}
 			}
 		}

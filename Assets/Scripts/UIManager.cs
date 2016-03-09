@@ -12,9 +12,12 @@ public class UIManager : MonoBehaviour {
     public GameObject pauseMenu;
     public GameObject lossMenu;
     public GameObject winMenu;
+	public GameObject inputName;
+	public GameObject highscoreMenu;
     private bool paused = false;
     private GameObject player;
     //Level Settings
+	private string levelname;
     private int levelType;
     private int timeLimit;
     private int numToWin;
@@ -24,7 +27,7 @@ public class UIManager : MonoBehaviour {
     private bool lost;
     private bool noBeacons;
     private int count;
-	private int score;
+	private float score;
     
     // Use this for initialization
     void Start () {
@@ -59,6 +62,7 @@ public class UIManager : MonoBehaviour {
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
         numBeacons = ls.numBeacons;
+		levelname = ls.levelname;
 
         return; }
 
@@ -87,7 +91,6 @@ public class UIManager : MonoBehaviour {
 
         if (wonLevel) {
             Cursor.visible = true;
-            winMenu.SetActive(true);
             if (Input.GetKeyDown("m")){
 				SceneManager.LoadScene("MainMenu");
 				Time.timeScale = 1;
@@ -99,8 +102,8 @@ public class UIManager : MonoBehaviour {
 				
 			}
 		}
-        if (!lost) { UpdateUI();}
-        else
+		if (!lost && !wonLevel) { UpdateUI();}
+		if(lost)
         {
             //Player Lost Show Lost Menu
             Time.timeScale = 0;
@@ -131,7 +134,9 @@ public class UIManager : MonoBehaviour {
                     winText.text = string.Format("");
                 }
                 //Case of Win
-                if (count >= numToWin) { winText.text = "You Win!"; }
+                if (count >= numToWin) { 
+					winMenu.SetActive(true);
+				}
             }
             else
             {
@@ -143,9 +148,7 @@ public class UIManager : MonoBehaviour {
 
             //Case of Win
             if (count >= numToWin) {
-                wonLevel = true;
-                Time.timeScale = 0.0f;
-                //winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
+				wonGame();
             }
 
 
@@ -175,9 +178,7 @@ public class UIManager : MonoBehaviour {
             if (Time.timeSinceLevelLoad > timeLimit)
             {
                 countdownText.text = string.Format("");
-                winText.text = "";
-                //winText.text = "You Win! \n Press M to return to the main menu or R to retry";
-                Time.timeScale = 0.0f;
+				wonGame();
                 wonLevel = true;
             }
 
@@ -190,8 +191,8 @@ public class UIManager : MonoBehaviour {
             { //Display Objective
                 winText.text = string.Format("Collect {0} to Win", numToWin);
             } else if (count >= numToWin) {
-                wonLevel = true;
-                Time.timeScale = 0.0f;
+				score = Time.time;
+				wonGame();
             }
             else {
                 countdownText.text = string.Format("Final Time: {0}", Time.timeSinceLevelLoad);
@@ -208,7 +209,13 @@ public class UIManager : MonoBehaviour {
         }
 
     }
-
+	void wonGame (){
+		wonLevel = true;
+		winMenu.SetActive(true);
+		Time.timeScale = 0.0f;
+ 		GameObject scoreresult = GameObject.Find("Score");
+		scoreresult.GetComponent<Text>().text = "Your Score: " + score.ToString();
+	}
 	void SetGameOver (string lossType){
         lost = true;
 	}
@@ -253,4 +260,66 @@ public class UIManager : MonoBehaviour {
         GameObject pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
         pauseMenu.SetActive(false);
     }
+
+
+
+	public void AddScore(){
+		float newScore = score;
+		string newName = inputName.GetComponent<Text>().text;
+		float oldScore;
+		string oldName;
+		for(int i=0;i<5;i++){
+			oldName = PlayerPrefs.GetString(i+"HScoreName");
+			if(oldName == ""){
+				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+				newScore = 0;
+				newName = "";
+			}
+			if(PlayerPrefs.HasKey(i+ levelname +"HScore")){
+				if(levelType == 1 || levelType == 2){
+					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")<newScore){ 
+						// new score is higher than the stored score
+						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
+						oldName = PlayerPrefs.GetString(i+"HScoreName");
+						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+						newScore = oldScore;
+						newName = oldName;
+					}
+				} else {
+					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")>newScore){ 
+						// new score is lower than the stored score
+						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
+						oldName = PlayerPrefs.GetString(i+"HScoreName");
+						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+						newScore = oldScore;
+						newName = oldName;
+					}
+				}
+			}else{
+				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+				newScore = 0;
+				newName = "";
+			}
+		}
+	}
+
+	public void LoadHScore(){
+
+		highscoreMenu.SetActive(true);
+		winMenu.SetActive(false);
+		pauseMenu.SetActive(false);
+		lossMenu.SetActive(false);
+
+		Text[] highscoreTexts = highscoreMenu.GetComponentsInChildren<Text>();
+		for(int i =0; i < 5; i++){
+			highscoreTexts[2*i + 3].text = PlayerPrefs.GetString(i+levelname+"HScoreName");
+			highscoreTexts[2*i + 4].text = PlayerPrefs.GetFloat(i+levelname+"HScore").ToString();
+		}
+		highscoreTexts[13].text = inputName.GetComponent<Text>().text;
+		highscoreTexts[14].text = score.ToString();
+	}
 }
