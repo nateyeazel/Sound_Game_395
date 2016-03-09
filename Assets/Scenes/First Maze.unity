@@ -2352,6 +2352,10 @@ Prefab:
       propertyPath: numBeacons
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11403944, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
+      propertyPath: levelname
+      value: Hard Maze
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1276f40740fc8464ebd1ea7d5e5bc968, type: 2}
   m_IsPrefabParent: 0

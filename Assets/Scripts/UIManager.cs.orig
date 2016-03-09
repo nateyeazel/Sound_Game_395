@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -9,27 +9,44 @@ public class UIManager : MonoBehaviour {
     public Text countText;
 	public Text scoreText;
     public Text countdownText;
+    public GameObject pauseMenu;
+    public GameObject lossMenu;
+    public GameObject winMenu;
+	public GameObject inputName;
+    public GameObject inputName2;
+    public GameObject highscoreMenu;
+    public GameObject surviveLossMenu;
+    private bool paused = false;
     private GameObject player;
     //Level Settings
+	private string levelname;
     private int levelType;
     private int timeLimit;
     private int numToWin;
+    private int numBeacons;
     private int timetoBlindness;
-
 	private bool wonLevel;
     private bool lost;
+    private bool noBeacons;
     private int count;
-	private int score;
-    
+	private float score;
+    private bool inHSMenu;
     // Use this for initialization
     void Start () {
+        SetupUI();
 		GameObject gameManagerObject = GameObject.Find("GameManager");
 		GameManager gm = gameManagerObject.GetComponent<GameManager>();
         winText = GameObject.Find("InGameUI").GetComponent<UIManager>().winText;
         countdownText = GameObject.Find("InGameUI").GetComponent<UIManager>().countdownText;
         countText = GameObject.Find("InGameUI").GetComponent<UIManager>().countText;
         scoreText = GameObject.Find("InGameUI").GetComponent<UIManager>().scoreText;
-		gm.scoreChanged += updateScoreCount;
+        pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
+        lossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().lossMenu;
+        winMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().winMenu;
+        surviveLossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().surviveLossMenu;
+        highscoreMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().highscoreMenu;
+        gm.scoreChanged += updateScoreCount;
+        gm.beaconsChanged += updateBeaconCount;
         gm.UISetup += SetupUI;
 		gm.youLost += SetGameOver;
 		wonLevel = false;
@@ -40,39 +57,77 @@ public class UIManager : MonoBehaviour {
 
     }
 	
-    void SetupUI(GameObject LevelSettings) {
+    void SetupUI() {
         //Get Level Settings including type numToWin etc.
-        LevelSettings ls = LevelSettings.GetComponent<LevelSettings>();
+        GameObject levelconfig = GameObject.Find("LevelSettings");
+        LevelSettings ls = levelconfig.GetComponent<LevelSettings>();
         levelType = ls.levelType;
         numToWin = ls.numWin;
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
-        
+        numBeacons = ls.numBeacons;
+		levelname = ls.levelname;
 
         return; }
 
 	// Update is called once per frame
 	void Update () {
-		if (wonLevel) {
-			if(Input.GetKeyDown("m")){
+        if (Input.GetKeyDown("p"))
+        {
+            if (paused)
+            {
+                paused = false;
+                pauseMenu.gameObject.SetActive(false);
+                Cursor.visible = false;
+                Time.timeScale = 1;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                pauseMenu.gameObject.SetActive(true);
+                Cursor.visible = true;
+                paused = true;
+
+            }
+        }
+
+
+
+        if (wonLevel) {
+            Cursor.visible = true;
+<<<<<<< HEAD
+=======
+            if (Input.GetKeyDown("m")){
 				SceneManager.LoadScene("MainMenu");
 				Time.timeScale = 1;
 			}
-
-			if(Input.GetKeyDown("r")){
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-				Time.timeScale = 1;
-			}
+>>>>>>> origin/master
 		}
-        if (!lost) { UpdateUI();}
+		if (!lost && !wonLevel) { UpdateUI();}
+        if (lost & !highscoreMenu.activeInHierarchy)
+        {
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            //Player Lost Show Lost Menu
+            if (levelType == 2) {
+                surviveLossMenu.SetActive(true);
+                score = Time.timeSinceLevelLoad;
+                GameObject scoreresult = GameObject.Find("Score2");
+                scoreresult.GetComponent<Text>().text = "You survived for: " + score.ToString();
+            }
+            else
+            {
+                lossMenu.SetActive(true);
+            }
+            
+        }
         
 	}
 
     void UpdateUI()
     {
-        if(levelType == 1)//1 - Collect X ammount going blind after Y time                                            
+        if (levelType == 1)//1 - Collect X ammount going blind after Y time                                            
         {
-
             if (Time.timeSinceLevelLoad <= timetoBlindness)
             {
                 countdownText.text = string.Format("Time until blindness: {0}", timetoBlindness - Time.timeSinceLevelLoad);
@@ -81,8 +136,7 @@ public class UIManager : MonoBehaviour {
                     winText.text = string.Format("Collect {0} to Win", numToWin);
 
                 }
-                
-                else if (timetoBlindness - Time.timeSinceLevelLoad < 10 && timetoBlindness - Time.timeSinceLevelLoad >0)
+                else if (timetoBlindness - Time.timeSinceLevelLoad < 10 & timetoBlindness - Time.timeSinceLevelLoad > 0)
                 {
                     //if blind soon
                     winText.text = string.Format("Blind in: {0}", Mathf.RoundToInt(timetoBlindness - Time.timeSinceLevelLoad));
@@ -91,57 +145,38 @@ public class UIManager : MonoBehaviour {
                     winText.text = string.Format("");
                 }
                 //Case of Win
-                if (count >= numToWin) { winText.text = "You Win!"; }
+                if (count >= numToWin) { 
+					winMenu.SetActive(true);
+				}
             }
             else
             {
                 countdownText.text = string.Format("");
+                winText.text = "";
             }
             SetCountText();
             SetScoreText();
 
             //Case of Win
-            if (count >= numToWin) { 
-				wonLevel = true;
-				winText.text = "You Win! \n Press M to return to the main menu or R to retry"; 
-			}
-<<<<<<< HEAD
-=======
+            if (count >= numToWin) {
+				wonGame();
+            }
 
->>>>>>> origin/master
 
         }
-        else if(levelType == 2)//2 - Avoid Enemies for X time
+        else if (levelType == 2)//2 - Avoid Enemies for X time
         {
 
-            countdownText.text = string.Format("Time left: {0}", timeLimit - Time.timeSinceLevelLoad);
+            countdownText.text = string.Format("Time: {0}", Time.timeSinceLevelLoad);
             //Case of Win
             if (Time.timeSinceLevelLoad <= 5)
             { //Display Objective
-                winText.text = string.Format("Avoid Enemies for {0} Seconds to Win", timeLimit);
+                winText.text = string.Format("Survive as long as possible!");
 
-            }
-
-            else if (timeLimit - Time.timeSinceLevelLoad < 5 && timeLimit - Time.timeSinceLevelLoad > 0)
-            {
-                //if soonto lose
-                winText.text = string.Format("Only {0} Seconds Left!", Mathf.RoundToInt( timeLimit- Time.timeSinceLevelLoad));
-            }
-            else if (timeLimit - Time.timeSinceLevelLoad < 0) {
-                SetGameOver("Time!");
             }
             else
             {
                 winText.text = "";
-            }
-
-
-
-            if (Time.timeSinceLevelLoad > timeLimit)
-            {
-                countdownText.text = string.Format("");
-				winText.text = "You Win! \n Press M to return to the main menu or R to retry";
-				wonLevel = true;
             }
 
         }
@@ -149,20 +184,39 @@ public class UIManager : MonoBehaviour {
         {
             countdownText.text = string.Format("Time so far: {0}", Time.timeSinceLevelLoad);
             SetCountText();
+            if (Time.timeSinceLevelLoad <= 5)
+            { //Display Objective
+                winText.text = string.Format("Find the gem in the maze \n and then find your way back!");
+			} else if (Time.timeSinceLevelLoad <= 10) {
+				winText.text = string.Format("Press B to drop beacons \n Use them as a breadcrumb trail!");
+			} else if (count >= numToWin) {
+				score = Time.timeSinceLevelLoad;
+				wonGame();
+            }
+            else {
+                countdownText.text = string.Format("Final Time: {0}", Time.timeSinceLevelLoad);
+                winText.text = string.Format("");
+            }
+            scoreText.text = string.Format("Beacons: {0}", numBeacons);
+            if (numBeacons==0 && Input.GetKey("b"))
+            {
 
-            //Case of Win
-            if (count >= numToWin)   {
-				wonLevel = true;
-				winText.text = "You Made it through the maze! \n Press M to return to the main menu or R to retry";
-			}
+                winText.text = string.Format("No Beacons Left!");
+            }
+
 
         }
 
     }
-
+	void wonGame (){
+		wonLevel = true;
+		winMenu.SetActive(true);
+		Time.timeScale = 0.0f;
+ 		GameObject scoreresult = GameObject.Find("Score");
+		scoreresult.GetComponent<Text>().text = "Your Score: " + score.ToString();
+	}
 	void SetGameOver (string lossType){
         lost = true;
-        winText.text = "Loser, hit R to restart";
 	}
 
 	void SetCountText ()
@@ -181,4 +235,96 @@ public class UIManager : MonoBehaviour {
        	score = newScore;
         count = newcount;
     }
+
+    void updateBeaconCount(int newnumBeacons)
+    {
+        numBeacons = newnumBeacons;
+        if(numBeacons == 0)
+        {
+            noBeacons = true;
+            
+        }
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
+
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        GameObject pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
+        pauseMenu.SetActive(false);
+    }
+
+
+
+	public void AddScore(){
+		float newScore = score;
+        string newName;
+        if (levelType == 2)
+        {newName = inputName2.GetComponent<Text>().text;}
+        else
+        { newName = inputName.GetComponent<Text>().text; }
+		float oldScore;
+		string oldName;
+		for(int i=0;i<5;i++){
+			oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
+            oldScore= PlayerPrefs.GetFloat(i + levelname + "HScore");
+            if (oldName == "" && oldScore ==0){ //If the score hasn't been set yet
+				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+				newScore = 0;
+				newName = "";
+				continue;
+			}
+			if(PlayerPrefs.HasKey(i+ levelname +"HScore")){
+				if(levelType == 1 || levelType == 2){ //Higher is better
+					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")<newScore){ 
+						// new score is higher than the stored score
+						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
+						oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
+						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+						newScore = oldScore;
+						newName = oldName;
+					}
+				} else {
+					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")>newScore){ //Lower is better
+						// new score is lower than the stored score
+						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
+						oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
+						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+						newScore = oldScore;
+						newName = oldName;
+					}
+				}
+			}else{ //The first time initialize the scores to 0 and ""
+				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
+				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
+				newScore = 0;
+				newName = "";
+			}
+		}
+	}
+
+	public void LoadHScore(){
+        inHSMenu = true;
+		highscoreMenu.SetActive(true);
+		winMenu.SetActive(false);
+		pauseMenu.SetActive(false);
+		lossMenu.SetActive(false);
+        surviveLossMenu.SetActive(false);
+		Text[] highscoreTexts = highscoreMenu.GetComponentsInChildren<Text>();
+		for(int i =0; i < 5; i++){
+			highscoreTexts[2*i + 3].text = PlayerPrefs.GetString(i+levelname+"HScoreName");
+			highscoreTexts[2*i + 4].text = PlayerPrefs.GetFloat(i+levelname+"HScore").ToString();
+		}
+		highscoreTexts[13].text = inputName.GetComponent<Text>().text;
+		highscoreTexts[14].text = score.ToString();
+	}
 }

@@ -50,6 +50,14 @@ public class PickUp : MonoBehaviour {
             this.transform.position = new Vector3(new_x, 0.5f, new_z);
 
         }
+		else if (type == 4)
+		{
+			int newIndex = Random.Range(0, 9);
+			while(newIndex == index){
+				newIndex = Random.Range(0, 9);
+			}
+			this.gameObject.transform.position = list[newIndex];
+		}
         else
         {
             //Default to Normal Pickup Behavior
