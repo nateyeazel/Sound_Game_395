@@ -48,7 +48,9 @@ public class GameManager : MonoBehaviour {
         timeLimit = ls.timeLimit;
         timetoBlindness = ls.timeToBlindness;
         numBeacons = ls.numBeacons;
-        UISetup.Invoke();
+		if(UISetup != null){
+        	UISetup.Invoke();
+		}
         PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
         pc.fellOff += youLose;

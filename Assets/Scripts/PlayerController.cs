@@ -85,7 +85,9 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Pick Up"))
 		{
             source.Play();
-            itemCollected.Invoke(other.gameObject);
+			if(itemCollected != null){
+            	itemCollected.Invoke(other.gameObject);
+			}
 		}
         if (other.gameObject.CompareTag("Moving Target"))
         {
