@@ -283,7 +283,7 @@ public class UIManager : MonoBehaviour {
 					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")<newScore){ 
 						// new score is higher than the stored score
 						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
-						oldName = PlayerPrefs.GetString(i+"HScoreName");
+						oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
 						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 						newScore = oldScore;
@@ -293,7 +293,7 @@ public class UIManager : MonoBehaviour {
 					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")>newScore){ //Lower is better
 						// new score is lower than the stored score
 						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
-						oldName = PlayerPrefs.GetString(i+"HScoreName");
+						oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
 						PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 						PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 						newScore = oldScore;
