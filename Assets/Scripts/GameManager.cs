@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-        if ((gameOver && Input.GetKeyDown("r"))|restart)
+        if (    restart)
         {
             Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour {
         pauseMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().pauseMenu;
         lossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().lossMenu;
         winMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().winMenu;
+        surviveLossMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().surviveLossMenu;
+        highscoreMenu = GameObject.Find("InGameUI").GetComponent<UIManager>().highscoreMenu;
         gm.scoreChanged += updateScoreCount;
         gm.beaconsChanged += updateBeaconCount;
         gm.UISetup += SetupUI;
@@ -97,15 +99,9 @@ public class UIManager : MonoBehaviour {
 				SceneManager.LoadScene("MainMenu");
 				Time.timeScale = 1;
 			}
-
-			if(Input.GetKeyDown("r")){
-                Time.timeScale = 1;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-				
-			}
 		}
 		if (!lost && !wonLevel) { UpdateUI();}
-        if (lost & !inHSMenu)
+        if (lost & !highscoreMenu.activeInHierarchy)
         {
             Time.timeScale = 0;
             Cursor.visible = true;
