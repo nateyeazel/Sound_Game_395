@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour {
     private GameObject levelconfig;
     //UI Manager events
     public delegate void UIInitialize();
-    public event UIInitialize UISetup;
+    public event UIInitialize UISetup = delegate { };
     public delegate void scoreChangedEvent(int newScore,int newCount);
-	public event scoreChangedEvent scoreChanged;
+	public event scoreChangedEvent scoreChanged = delegate { };
     public delegate void beaconsChangedEvent(int newnumBeacons);
-    public event beaconsChangedEvent beaconsChanged;
+    public event beaconsChangedEvent beaconsChanged = delegate { };
     public delegate void youLostEvent(string lossType);
-	public event youLostEvent youLost;
+	public event youLostEvent youLost = delegate { };
 	public GameObject beacon;
 	public Material darkSky;
     //
@@ -67,9 +67,12 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
-        item.GetComponent<PickUp>().PickedUp();
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
+
+        item.GetComponent<PickUp>().PickedUp();
+        
+        
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         scoreChanged.Invoke(score,count);
         //Update UI
@@ -111,6 +114,7 @@ public class GameManager : MonoBehaviour {
         gameOver = true;
         Time.timeScale = 0;
         youLost.Invoke("Fell off edge");
+        
     }
 
     void Update () {

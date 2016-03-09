@@ -48,7 +48,7 @@ public class PickUp : MonoBehaviour {
             float new_x = UnityEngine.Random.Range(Xrange[0], Xrange[1]);
             float new_z = UnityEngine.Random.Range(Yrange[0], Yrange[1]);
             this.transform.position = new Vector3(new_x, 0.5f, new_z);
-
+            spawnTime = Time.time;
         }
 		else if (type == 4)
 		{
@@ -57,7 +57,8 @@ public class PickUp : MonoBehaviour {
 				newIndex = Random.Range(0, 9);
 			}
 			this.gameObject.transform.position = list[newIndex];
-		}
+            spawnTime = Time.time;
+        }
         else
         {
             //Default to Normal Pickup Behavior

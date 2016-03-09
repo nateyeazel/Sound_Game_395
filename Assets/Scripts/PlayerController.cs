@@ -23,13 +23,13 @@ public class PlayerController : MonoBehaviour {
 
     //Game Manager Events
     public delegate void collectedMovingTargetEvent(GameObject movingTarget);
-    public event collectedMovingTargetEvent collectedMovingTarget;
+    public event collectedMovingTargetEvent collectedMovingTarget = delegate { };
     public delegate void ItemCollectedEvent(GameObject item);
-    public event ItemCollectedEvent itemCollected;
+    public event ItemCollectedEvent itemCollected = delegate { };
     public delegate void lightsOffEvent(GameObject item);
-    public event lightsOffEvent lightsOff;
+    public event lightsOffEvent lightsOff = delegate { };
     public delegate void beaconCollectedEvent(GameObject beacon);
-    public event beaconCollectedEvent beaconCollected;
+    public event beaconCollectedEvent beaconCollected = delegate { };
     void Start ()
 	{
         distToGround = this.GetComponent<Collider>().bounds.extents.y;
