@@ -91,16 +91,6 @@ public class UIManager : MonoBehaviour {
 
         if (wonLevel) {
             Cursor.visible = true;
-            if (Input.GetKeyDown("m")){
-				SceneManager.LoadScene("MainMenu");
-				Time.timeScale = 1;
-			}
-
-			if(Input.GetKeyDown("r")){
-                Time.timeScale = 1;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-				
-			}
 		}
 		if (!lost && !wonLevel) { UpdateUI();}
 		if(lost)
