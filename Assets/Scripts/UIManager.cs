@@ -73,24 +73,7 @@ public class UIManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("p"))
-        {
-            if (paused)
-            {
-                paused = false;
-                pauseMenu.gameObject.SetActive(false);
-                Cursor.visible = false;
-                Time.timeScale = 1;
-            }
-            else
-            {
-                Time.timeScale = 0;
-                pauseMenu.gameObject.SetActive(true);
-                Cursor.visible = true;
-                paused = true;
-
-            }
-        }
+        
 
 
 
@@ -101,7 +84,27 @@ public class UIManager : MonoBehaviour {
 				Time.timeScale = 1;
 			}
 		}
-		if (!lost && !wonLevel) { UpdateUI();}
+		if (!lost && !wonLevel) { 
+			if (Input.GetKeyDown("p"))
+			{
+				if (paused)
+				{
+					paused = false;
+					pauseMenu.gameObject.SetActive(false);
+					Cursor.visible = false;
+					Time.timeScale = 1;
+				}
+				else
+				{
+					Time.timeScale = 0;
+					pauseMenu.gameObject.SetActive(true);
+					Cursor.visible = true;
+					paused = true;
+
+				}
+			}
+			UpdateUI();
+		}
         if (lost & !highscoreMenu.activeInHierarchy)
         {
             Time.timeScale = 0;

@@ -10,12 +10,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Easy Collect.unity
   - enabled: 1
-    path: Assets/Scenes/Runaway.unity
+    path: Assets/Scenes/EasyRunaway.unity
   - enabled: 1
     path: Assets/Scenes/Easy Maze.unity
   - enabled: 1
     path: Assets/Scenes/Hard Collect.unity
   - enabled: 1
-    path: Assets/Scenes/Runaway Level2.unity
+    path: Assets/Scenes/Hard Runaway.unity
   - enabled: 1
     path: Assets/Scenes/Hard Maze.unity

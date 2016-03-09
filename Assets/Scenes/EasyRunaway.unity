@@ -66,7 +66,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 112000001, guid: 6f96f44e0467f6f42b86d731c044e33f,
+  m_LightingDataAsset: {fileID: 112000001, guid: d9f53eac01a7345a385d037c320b3c43,
     type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -2657,7 +2657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
 --- !u!1 &1101413490 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 190758, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
