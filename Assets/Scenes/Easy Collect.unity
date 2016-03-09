@@ -205,11 +205,11 @@ Prefab:
       objectReference: {fileID: 8300000, guid: c3efb831806517f4387d78ff3c134481, type: 3}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: maxSpeed
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11435256, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: speed
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8251874, guid: 1e273966e3e5144388c67c6a7e5b170b, type: 2}
       propertyPath: spreadCustomCurve.m_RotationOrder
@@ -358,6 +358,26 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11480538, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097081416}
+    - target: {fileID: 11400350, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097081416}
+    - target: {fileID: 11495118, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097081416}
+    - target: {fileID: 11482660, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097081416}
+    - target: {fileID: 11405658, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097081416}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
   m_IsPrefabParent: 0
@@ -450,6 +470,7 @@ MonoBehaviour:
   lossMenu: {fileID: 0}
   winMenu: {fileID: 0}
   inputName: {fileID: 0}
+  inputName2: {fileID: 0}
   highscoreMenu: {fileID: 0}
   surviveLossMenu: {fileID: 0}
 --- !u!114 &550466139
@@ -472,6 +493,7 @@ MonoBehaviour:
   lossMenu: {fileID: 0}
   winMenu: {fileID: 0}
   inputName: {fileID: 0}
+  inputName2: {fileID: 0}
   highscoreMenu: {fileID: 0}
   surviveLossMenu: {fileID: 0}
 --- !u!1 &631479266
@@ -791,8 +813,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelname: Easy Collect
   levelType: 1
-  numWin: 10
-  timeToBlindness: 20
+  numWin: 12
+  timeToBlindness: 15
   numBeacons: 0
   timeLimit: 30
 --- !u!4 &1184949845

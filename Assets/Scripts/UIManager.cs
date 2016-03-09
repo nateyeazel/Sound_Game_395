@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour {
     private bool inHSMenu;
     // Use this for initialization
     void Start () {
+		print("UI manager start called");
         SetupUI();
 		GameObject gameManagerObject = GameObject.Find("GameManager");
 		GameManager gm = gameManagerObject.GetComponent<GameManager>();

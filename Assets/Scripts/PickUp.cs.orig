@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -48,6 +48,12 @@ public class PickUp : MonoBehaviour {
             float new_x = UnityEngine.Random.Range(Xrange[0], Xrange[1]);
             float new_z = UnityEngine.Random.Range(Yrange[0], Yrange[1]);
             this.transform.position = new Vector3(new_x, 0.5f, new_z);
+<<<<<<< Updated upstream
+            spawnTime = Time.time;
+=======
+			spawnTime = Time.time;
+
+>>>>>>> Stashed changes
         }
 		else if (type == 4)
 		{
@@ -57,7 +63,13 @@ public class PickUp : MonoBehaviour {
 			}
 			index = newIndex;
 			this.gameObject.transform.position = list[newIndex];
+<<<<<<< Updated upstream
+            spawnTime = Time.time;
+        }
+=======
+			spawnTime = Time.time;
 		}
+>>>>>>> Stashed changes
         else
         {
             //Default to Normal Pickup Behavior

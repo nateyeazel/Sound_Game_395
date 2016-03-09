@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using UnityEngine.UI;
@@ -8,36 +8,66 @@ public class GameManager : MonoBehaviour {
 
 
     private bool gameOver;
-    private bool paused = false;
-    private float difficulty;
+    //private float difficulty;
 	private int count;
 	private int score;
 
-    private Canvas MainMenu;
+//    private Canvas MainMenu;
     private Canvas UI;
 	private bool visibleObjects;
 	public bool flicker;
 
 	private GameObject player;
-
-	//UI Manager events
-	public delegate void scoreChangedEvent(int newScore);
-	public event scoreChangedEvent scoreChanged;
-	public delegate void countChangedEvent(int newCount);
-	public event countChangedEvent countChanged;
-	public delegate void youLostEvent(string lossType);
-	public event youLostEvent youLost;
+    private GameObject levelconfig;
+    //UI Manager events
+    public delegate void UIInitialize();
+<<<<<<< Updated upstream
+    public event UIInitialize UISetup = delegate { };
+    public delegate void scoreChangedEvent(int newScore,int newCount);
+	public event scoreChangedEvent scoreChanged = delegate { };
+    public delegate void beaconsChangedEvent(int newnumBeacons);
+    public event beaconsChangedEvent beaconsChanged = delegate { };
+    public delegate void youLostEvent(string lossType);
+	public event youLostEvent youLost = delegate { };
+=======
+	public event UIInitialize UISetup = delegate {};
+    public delegate void scoreChangedEvent(int newScore,int newCount);
+	public event scoreChangedEvent scoreChanged = delegate {};
+    public delegate void beaconsChangedEvent(int newnumBeacons);
+	public event beaconsChangedEvent beaconsChanged = delegate {};
+    public delegate void youLostEvent(string lossType);
+	public event youLostEvent youLost = delegate {};
+>>>>>>> Stashed changes
 	public GameObject beacon;
 	public Material darkSky;
+    //
+    private int numToWin;
+    private bool restart = false;
+    private int levelType;
+    private int timeLimit;
+    private int timetoBlindness;
+    private int numBeacons;
 
 	void Start () {
-		player = GameObject.Find("Player");
-		PlayerController pc = player.GetComponent<PlayerController>();
+        Time.timeScale = 1;
+        player = GameObject.Find("Player");
+        levelconfig = GameObject.Find("LevelSettings");
+        LevelSettings ls = levelconfig.GetComponent<LevelSettings>();
+        numToWin = ls.numWin;
+        levelType = ls.levelType;
+        timeLimit = ls.timeLimit;
+        timetoBlindness = ls.timeToBlindness;
+        numBeacons = ls.numBeacons;
+		if(UISetup != null){
+        	UISetup.Invoke();
+		}
+        PlayerController pc = player.GetComponent<PlayerController>();
         pc.hitEnemy += youLose;
         pc.fellOff += youLose;
         pc.itemCollected += onItemCollected;
         pc.collectedMovingTarget += collectedMovingTarget;
 		pc.lightsOff += lightsOut;
+        pc.beaconCollected += collectedBeacon;
 
         visibleObjects = true;
 		flicker = false;
@@ -47,16 +77,22 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
-<<<<<<< HEAD
-//        item.SetActive(false);
-        //countChanged.Invoke(count);
-=======
-        item.GetComponent<PickUp>().PickedUp();
->>>>>>> origin/master
+<<<<<<< Updated upstream
         //Update points here
         float spawnTime = item.GetComponent<PickUp>().spawnTime;
+
+        item.GetComponent<PickUp>().PickedUp();
+        
+=======
+		float spawnTime = item.GetComponent<PickUp>().spawnTime;
+        item.GetComponent<PickUp>().PickedUp();
+        //Update points here
+>>>>>>> Stashed changes
+        
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
-        scoreChanged.Invoke(score);
+        scoreChanged.Invoke(score,count);
+        //Update UI
+
     }
 
 
@@ -67,12 +103,20 @@ public class GameManager : MonoBehaviour {
         //Move target to next destination
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
-        scoreChanged.Invoke(score);
-
+        scoreChanged(score, count);
 	}
 
+    void collectedBeacon(GameObject beacon)
+    {
+        numBeacons += 1;
+        beaconsChanged.Invoke(numBeacons);
+        beacon.SetActive(false);
+        
+
+    }
+
 	void lightsOut (GameObject item) {
-		item.GetComponent<PickUp>().MoveToNext(false);
+		item.GetComponent<PickUp>().PickedUp();
 
 		GameObject mainLight = GameObject.Find("Directional Light");
 		mainLight.GetComponent<Light>().intensity = 0.1f; //Best way to make dark
@@ -86,54 +130,63 @@ public class GameManager : MonoBehaviour {
         gameOver = true;
         Time.timeScale = 0;
         youLost.Invoke("Fell off edge");
+        
     }
 
     void Update () {
 
-		if(Time.timeSinceLevelLoad >= 30){
-            GameObject target = GameObject.FindWithTag("Moving Target");
-            if (visibleObjects){
-				visibleObjects = false;
-				target.GetComponent<Renderer>().enabled = false;
-				target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
-			}
-
-			if (flicker)
-			{
-				if ((int)Time.realtimeSinceStartup % 5 == 0)
-				{
-					target.GetComponent<Renderer>().enabled = true;
-				}
-				else if ((int)Time.realtimeSinceStartup % 5 == 1)
-				{
+		if(levelType == 1){
+			if(Time.timeSinceLevelLoad >= timetoBlindness){
+	            GameObject target = GameObject.FindWithTag("Moving Target");
+	            if (visibleObjects){
+					visibleObjects = false;
 					target.GetComponent<Renderer>().enabled = false;
+					target.transform.localScale += new Vector3(2.0f, 2.0f, 2.0f);
+				}
+
+				if (flicker)
+				{
+					if ((int)Time.realtimeSinceStartup % 5 == 0)
+					{
+						target.GetComponent<Renderer>().enabled = true;
+					}
+					else if ((int)Time.realtimeSinceStartup % 5 == 1)
+					{
+						target.GetComponent<Renderer>().enabled = false;
+					}
 				}
 			}
 		}
 
-        if (gameOver && Input.GetKeyDown("r"))
+        if (    restart)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
         }
 
-        if (Input.GetKeyDown("p"))
-        {
-            if (paused)
+
+        if (Input.GetKeyDown("b")){
+            if (numBeacons > 0)
             {
-                paused = false;
-                Time.timeScale = 1;
+                numBeacons -= 1;
+                beaconsChanged.Invoke(numBeacons);
+                Transform currentLocation = player.transform;
+                Vector3 beaconLocation = player.transform.position + new Vector3(0, 1, 0);
+				GameObject myBeacon =  Instantiate(beacon, beaconLocation, Quaternion.identity) as GameObject;
+				myBeacon.GetComponent<AudioSource>().pitch += 0.5f * numBeacons;
             }
-            else
-            {
-                Time.timeScale = 0;
-                paused = true;
+            else {
+                //Display No beacons left message
+                beaconsChanged.Invoke(numBeacons);
+                
             }
-        }
-		if (Input.GetKeyDown("b")){
-			Transform currentLocation = player.transform;
-			Vector3 beaconLocation = player.transform.position + new Vector3 (0, 1, 0);
-			Instantiate(beacon, beaconLocation, Quaternion.identity);
 		}
     }
+
+    public void Restart()
+    {
+        restart = true;
+    }
+    
 }

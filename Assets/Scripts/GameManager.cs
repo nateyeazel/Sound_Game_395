@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour {
     private GameObject levelconfig;
     //UI Manager events
     public delegate void UIInitialize();
-    public event UIInitialize UISetup = delegate { };
+	public event UIInitialize UISetup = delegate {};
     public delegate void scoreChangedEvent(int newScore,int newCount);
-	public event scoreChangedEvent scoreChanged = delegate { };
+	public event scoreChangedEvent scoreChanged = delegate {};
     public delegate void beaconsChangedEvent(int newnumBeacons);
-    public event beaconsChangedEvent beaconsChanged = delegate { };
+	public event beaconsChangedEvent beaconsChanged = delegate {};
     public delegate void youLostEvent(string lossType);
-	public event youLostEvent youLost = delegate { };
+	public event youLostEvent youLost = delegate {};
 	public GameObject beacon;
 	public Material darkSky;
     //
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour {
     private int numBeacons;
 
 	void Start () {
+		print("Start being called");
         Time.timeScale = 1;
         player = GameObject.Find("Player");
         levelconfig = GameObject.Find("LevelSettings");
@@ -67,13 +68,11 @@ public class GameManager : MonoBehaviour {
 
 	void onItemCollected (GameObject item) {
 		count += 1;
+		float spawnTime = item.GetComponent<PickUp>().spawnTime;
         //Update points here
-        float spawnTime = item.GetComponent<PickUp>().spawnTime;
-
-        item.GetComponent<PickUp>().PickedUp();
-        
         
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
+		item.GetComponent<PickUp>().PickedUp();
         scoreChanged.Invoke(score,count);
         //Update UI
 
@@ -82,12 +81,14 @@ public class GameManager : MonoBehaviour {
 
 	void collectedMovingTarget (GameObject movingTarget) {
 		count += 1;
+
         float spawnTime = movingTarget.GetComponent<PickUp>().spawnTime;
         movingTarget.GetComponent<PickUp>().PickedUp();
         //Move target to next destination
         score += Mathf.Max((int)(100 - Mathf.Floor(Time.time - spawnTime) * 5), 0);
         movingTarget.GetComponent<PickUp>().spawnTime = Time.time;
-        scoreChanged(score, count);
+
+		scoreChanged.Invoke(score, count);
 	}
 
     void collectedBeacon(GameObject beacon)
@@ -114,7 +115,6 @@ public class GameManager : MonoBehaviour {
         gameOver = true;
         Time.timeScale = 0;
         youLost.Invoke("Fell off edge");
-        
     }
 
     void Update () {
