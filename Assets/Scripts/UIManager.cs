@@ -189,9 +189,11 @@ public class UIManager : MonoBehaviour {
             SetCountText();
             if (Time.timeSinceLevelLoad <= 5)
             { //Display Objective
-                winText.text = string.Format("Collect {0} to Win", numToWin);
-            } else if (count >= numToWin) {
-				score = Time.time;
+                winText.text = string.Format("Find the gem in the maze \n and then find your way back!");
+			} else if (Time.timeSinceLevelLoad <= 10) {
+				winText.text = string.Format("Press B to drop beacons \n Use them as a breadcrumb trail!");
+			} else if (count >= numToWin) {
+				score = Time.timeSinceLevelLoad;
 				wonGame();
             }
             else {
@@ -270,14 +272,15 @@ public class UIManager : MonoBehaviour {
 		string oldName;
 		for(int i=0;i<5;i++){
 			oldName = PlayerPrefs.GetString(i+"HScoreName");
-			if(oldName == ""){
+			if(oldName == ""){ //If the score hasn't been set yet
 				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 				newScore = 0;
 				newName = "";
+				continue;
 			}
 			if(PlayerPrefs.HasKey(i+ levelname +"HScore")){
-				if(levelType == 1 || levelType == 2){
+				if(levelType == 1 || levelType == 2){ //Higher is better
 					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")<newScore){ 
 						// new score is higher than the stored score
 						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
@@ -288,7 +291,7 @@ public class UIManager : MonoBehaviour {
 						newName = oldName;
 					}
 				} else {
-					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")>newScore){ 
+					if(PlayerPrefs.GetFloat(i+ levelname +"HScore")>newScore){ //Lower is better
 						// new score is lower than the stored score
 						oldScore = PlayerPrefs.GetFloat(i+ levelname +"HScore");
 						oldName = PlayerPrefs.GetString(i+"HScoreName");
@@ -298,7 +301,7 @@ public class UIManager : MonoBehaviour {
 						newName = oldName;
 					}
 				}
-			}else{
+			}else{ //The first time initialize the scores to 0 and ""
 				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);
 				newScore = 0;
