@@ -263,15 +263,13 @@ public class UIManager : MonoBehaviour {
 		float newScore = score;
         string newName;
         if (levelType == 2)
-        {
-            newName = inputName2.GetComponent<Text>().text;
-        }
+        {newName = inputName2.GetComponent<Text>().text;}
         else
         { newName = inputName.GetComponent<Text>().text; }
 		float oldScore;
 		string oldName;
 		for(int i=0;i<5;i++){
-			oldName = PlayerPrefs.GetString(i+"HScoreName");
+			oldName = PlayerPrefs.GetString(i+levelname+"HScoreName");
 			if(oldName == ""){ //If the score hasn't been set yet
 				PlayerPrefs.SetFloat(i+ levelname +"HScore",newScore);
 				PlayerPrefs.SetString(i+ levelname +"HScoreName",newName);

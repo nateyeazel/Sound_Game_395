@@ -28,8 +28,8 @@ public class RandomMovement : MonoBehaviour {
             float new_z = UnityEngine.Random.Range(-10f, 10f);
             target = new Vector3(new_x, 0.5f, new_z);
         }
-        //Spawn every 10 seconds
-        if (Time.time > createdtime + 10)
+        //Spawn every 7 seconds
+        if (Time.time > createdtime + 7)
         {
             createdtime = Time.time;
             Instantiate(this.gameObject);
