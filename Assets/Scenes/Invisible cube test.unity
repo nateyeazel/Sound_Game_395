@@ -358,10 +358,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 167962, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
-      propertyPath: m_Name
-      value: InGameUI
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
   m_IsPrefabParent: 0
@@ -455,6 +451,7 @@ MonoBehaviour:
   winMenu: {fileID: 0}
   inputName: {fileID: 0}
   highscoreMenu: {fileID: 0}
+  surviveLossMenu: {fileID: 0}
 --- !u!114 &550466139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,6 +473,7 @@ MonoBehaviour:
   winMenu: {fileID: 0}
   inputName: {fileID: 0}
   highscoreMenu: {fileID: 0}
+  surviveLossMenu: {fileID: 0}
 --- !u!1 &631479266
 GameObject:
   m_ObjectHideFlags: 0

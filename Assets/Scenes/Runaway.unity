@@ -1819,7 +1819,9 @@ MonoBehaviour:
   lossMenu: {fileID: 0}
   winMenu: {fileID: 0}
   inputName: {fileID: 0}
+  inputName2: {fileID: 0}
   highscoreMenu: {fileID: 0}
+  surviveLossMenu: {fileID: 0}
 --- !u!114 &550466139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1840,7 +1842,9 @@ MonoBehaviour:
   lossMenu: {fileID: 0}
   winMenu: {fileID: 0}
   inputName: {fileID: 0}
+  inputName2: {fileID: 0}
   highscoreMenu: {fileID: 0}
+  surviveLossMenu: {fileID: 0}
 --- !u!1 &569190200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3273,7 +3277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f130e656ede4e1649b2c1cf14f7aa15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelname: 
+  levelname: Hard Avoid
   levelType: 2
   numWin: 0
   timeToBlindness: 0
@@ -3370,6 +3374,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 136118, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491788, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+      propertyPath: inputName2
+      value: 
+      objectReference: {fileID: 2089580059}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
   m_IsPrefabParent: 0
@@ -5509,6 +5521,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43c209c12d57b4ec88a1350633d7e29b, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2089580059 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 152446, guid: 8f937937a05fc4a55abf7ff19138a36e, type: 2}
+  m_PrefabInternal: {fileID: 1216412843}
 --- !u!1 &2091415442
 GameObject:
   m_ObjectHideFlags: 0
